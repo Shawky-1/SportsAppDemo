@@ -16,5 +16,8 @@ struct Fixtures:Codable {
         case homeTeamName = "event_home_team"
     }
     
+    
+    
+    
 }
 
