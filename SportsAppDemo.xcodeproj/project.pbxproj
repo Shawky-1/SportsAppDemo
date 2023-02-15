@@ -14,6 +14,9 @@
 		E232FA46299BAB0300156D4C /* SportsAppDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E232FA44299BAB0300156D4C /* SportsAppDemo.xcdatamodeld */; };
 		E232FA48299BAB0400156D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E232FA47299BAB0400156D4C /* Assets.xcassets */; };
 		E232FA4B299BAB0400156D4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E232FA49299BAB0400156D4C /* LaunchScreen.storyboard */; };
+		E2B00C7B299D1F900068D393 /* NetworkManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B00C7A299D1F900068D393 /* NetworkManger.swift */; };
+		E2B00C7F299D1FB80068D393 /* CoreDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B00C7E299D1FB80068D393 /* CoreDataManger.swift */; };
+		E2B00C81299D1FCF0068D393 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B00C80299D1FCF0068D393 /* Fixtures.swift */; };
 		E45285C694A1EA4402826676 /* Pods_SportsAppDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2E010973811740904827639 /* Pods_SportsAppDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +33,9 @@
 		E232FA47299BAB0400156D4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E232FA4A299BAB0400156D4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E232FA4C299BAB0400156D4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2B00C7A299D1F900068D393 /* NetworkManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManger.swift; sourceTree = "<group>"; };
+		E2B00C7E299D1FB80068D393 /* CoreDataManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManger.swift; sourceTree = "<group>"; };
+		E2B00C80299D1FCF0068D393 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,16 +88,59 @@
 		E232FA3A299BAB0300156D4C /* SportsAppDemo */ = {
 			isa = PBXGroup;
 			children = (
-				E232FA3B299BAB0300156D4C /* AppDelegate.swift */,
-				E232FA3D299BAB0300156D4C /* SceneDelegate.swift */,
-				E232FA3F299BAB0300156D4C /* ViewController.swift */,
-				E232FA41299BAB0300156D4C /* Main.storyboard */,
-				E232FA47299BAB0400156D4C /* Assets.xcassets */,
-				E232FA49299BAB0400156D4C /* LaunchScreen.storyboard */,
+				E2B00C79299D1F600068D393 /* Utilities */,
+				E2B00C77299D1F360068D393 /* Models */,
+				E2B00C76299D1F2D0068D393 /* Mangers */,
+				E2B00C78299D1F4C0068D393 /* ViewControllers */,
+				E232FA54299C2CD900156D4C /* Views */,
 				E232FA4C299BAB0400156D4C /* Info.plist */,
 				E232FA44299BAB0300156D4C /* SportsAppDemo.xcdatamodeld */,
 			);
 			path = SportsAppDemo;
+			sourceTree = "<group>";
+		};
+		E232FA54299C2CD900156D4C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E232FA41299BAB0300156D4C /* Main.storyboard */,
+				E232FA49299BAB0400156D4C /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E2B00C76299D1F2D0068D393 /* Mangers */ = {
+			isa = PBXGroup;
+			children = (
+				E2B00C7A299D1F900068D393 /* NetworkManger.swift */,
+				E2B00C7E299D1FB80068D393 /* CoreDataManger.swift */,
+			);
+			path = Mangers;
+			sourceTree = "<group>";
+		};
+		E2B00C77299D1F360068D393 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E2B00C80299D1FCF0068D393 /* Fixtures.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E2B00C78299D1F4C0068D393 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E232FA3F299BAB0300156D4C /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E2B00C79299D1F600068D393 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E232FA47299BAB0400156D4C /* Assets.xcassets */,
+				E232FA3B299BAB0300156D4C /* AppDelegate.swift */,
+				E232FA3D299BAB0300156D4C /* SceneDelegate.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,9 +258,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2B00C7B299D1F900068D393 /* NetworkManger.swift in Sources */,
 				E232FA40299BAB0300156D4C /* ViewController.swift in Sources */,
 				E232FA3C299BAB0300156D4C /* AppDelegate.swift in Sources */,
 				E232FA3E299BAB0300156D4C /* SceneDelegate.swift in Sources */,
+				E2B00C7F299D1FB80068D393 /* CoreDataManger.swift in Sources */,
+				E2B00C81299D1FCF0068D393 /* Fixtures.swift in Sources */,
 				E232FA46299BAB0300156D4C /* SportsAppDemo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
