@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct Fixtures:Codable {
-    let awayTeamName:String
-    let homeTeamName:String
+class Leagues:Decodable{
+    var success:Int?
+    var result:[Items]
     
-    enum CodingKeys:String, CodingKey{
-        case awayTeamName = "event_away_team"
-        case homeTeamName = "event_home_team"
     }
-    
-    
-    
+
+class Items:Decodable{
+    var league_name:String?
+    var league_key:Int?
+    var league_logo:String?
     
 }
+
 

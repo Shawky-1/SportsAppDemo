@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCA14CCC299E8750005461B0 /* SportsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA14CCB299E8750005461B0 /* SportsTypes.swift */; };
+		BCA14CCE299E9E5C005461B0 /* LeaguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA14CCD299E9E5C005461B0 /* LeaguesViewController.swift */; };
+		BCA14CD0299E9F42005461B0 /* LeaguesCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA14CCF299E9F42005461B0 /* LeaguesCells.swift */; };
+		BCA14CD3299EABE3005461B0 /* UIScrollView_InfiniteScroll in Frameworks */ = {isa = PBXBuildFile; productRef = BCA14CD2299EABE3005461B0 /* UIScrollView_InfiniteScroll */; };
 		E232FA3C299BAB0300156D4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E232FA3B299BAB0300156D4C /* AppDelegate.swift */; };
 		E232FA3E299BAB0300156D4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E232FA3D299BAB0300156D4C /* SceneDelegate.swift */; };
 		E232FA40299BAB0300156D4C /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E232FA3F299BAB0300156D4C /* HomeVC.swift */; };
@@ -27,6 +31,9 @@
 /* Begin PBXFileReference section */
 		0F68947C382DC74E11015AD9 /* Pods-SportsAppDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsAppDemo.debug.xcconfig"; path = "Target Support Files/Pods-SportsAppDemo/Pods-SportsAppDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		A3907D9FAB1635F07DB768C3 /* Pods-SportsAppDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsAppDemo.release.xcconfig"; path = "Target Support Files/Pods-SportsAppDemo/Pods-SportsAppDemo.release.xcconfig"; sourceTree = "<group>"; };
+		BCA14CCB299E8750005461B0 /* SportsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsTypes.swift; sourceTree = "<group>"; };
+		BCA14CCD299E9E5C005461B0 /* LeaguesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesViewController.swift; sourceTree = "<group>"; };
+		BCA14CCF299E9F42005461B0 /* LeaguesCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesCells.swift; sourceTree = "<group>"; };
 		D2E010973811740904827639 /* Pods_SportsAppDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsAppDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E232FA38299BAB0300156D4C /* SportsAppDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsAppDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E232FA3B299BAB0300156D4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45285C694A1EA4402826676 /* Pods_SportsAppDemo.framework in Frameworks */,
+				BCA14CD3299EABE3005461B0 /* UIScrollView_InfiniteScroll in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +147,9 @@
 			isa = PBXGroup;
 			children = (
 				E232FA3F299BAB0300156D4C /* HomeVC.swift */,
+				BCA14CCB299E8750005461B0 /* SportsTypes.swift */,
+				BCA14CCD299E9E5C005461B0 /* LeaguesViewController.swift */,
+				BCA14CCF299E9F42005461B0 /* LeaguesCells.swift */,
 				E2B00C84299D46FE0068D393 /* WalkThroughVC.swift */,
 			);
 			path = ViewControllers;
@@ -181,6 +192,9 @@
 			dependencies = (
 			);
 			name = SportsAppDemo;
+			packageProductDependencies = (
+				BCA14CD2299EABE3005461B0 /* UIScrollView_InfiniteScroll */,
+			);
 			productName = SportsAppDemo;
 			productReference = E232FA38299BAB0300156D4C /* SportsAppDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -209,6 +223,9 @@
 				Base,
 			);
 			mainGroup = E232FA2F299BAB0300156D4C;
+			packageReferences = (
+				BCA14CD1299EABE3005461B0 /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */,
+			);
 			productRefGroup = E232FA39299BAB0300156D4C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -285,10 +302,13 @@
 				E232FA3E299BAB0300156D4C /* SceneDelegate.swift in Sources */,
 				E2B00C89299D48150068D393 /* WalkThroughCell.swift in Sources */,
 				E2B00C7F299D1FB80068D393 /* CoreDataManger.swift in Sources */,
+				BCA14CD0299E9F42005461B0 /* LeaguesCells.swift in Sources */,
 				E2B00C81299D1FCF0068D393 /* Fixtures.swift in Sources */,
 				E232FA46299BAB0300156D4C /* SportsAppDemo.xcdatamodeld in Sources */,
+				BCA14CCC299E8750005461B0 /* SportsTypes.swift in Sources */,
 				E2B00C8C299E1C660068D393 /* WalkThroughModel.swift in Sources */,
 				E2B00C85299D46FE0068D393 /* WalkThroughVC.swift in Sources */,
+				BCA14CCE299E9E5C005461B0 /* LeaguesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +530,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BCA14CD1299EABE3005461B0 /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pronebird/UIScrollView-InfiniteScroll";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BCA14CD2299EABE3005461B0 /* UIScrollView_InfiniteScroll */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCA14CD1299EABE3005461B0 /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */;
+			productName = UIScrollView_InfiniteScroll;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E232FA44299BAB0300156D4C /* SportsAppDemo.xcdatamodeld */ = {
