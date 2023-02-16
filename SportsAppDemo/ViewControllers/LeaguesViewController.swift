@@ -88,6 +88,11 @@ extension LeaguesViewController: UITableViewDelegate,UITableViewDataSource{
         return 130
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return "Leagues"
+    }
+    
 }
 
 
