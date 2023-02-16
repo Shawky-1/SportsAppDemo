@@ -12,6 +12,8 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showWalkThrough()
+        
+        print("Test")
     }
     
     private func showWalkThrough(){
