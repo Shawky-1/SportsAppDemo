@@ -13,7 +13,8 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         showWalkThrough()
         
-        print("Test2")
+        print("Test4")
+        
     }
     
     private func showWalkThrough(){
