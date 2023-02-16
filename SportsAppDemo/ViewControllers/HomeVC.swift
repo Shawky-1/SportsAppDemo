@@ -12,16 +12,19 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showWalkThrough()
-        
+        print("Test3")
 
         print("Test4")
         
+        print("fekry")
+        
 
-        print("Test3")
+        
 
     }
     
     private func showWalkThrough(){
+       
         if UserDefaults.standard.bool(forKey: "didFinishWalkThrough") != false {
             let walkThroughVC = self.storyboard?.instantiateViewController(withIdentifier: "WalkThroughVC") as! WalkThroughVC
             walkThroughVC.modalPresentationStyle = .overFullScreen
