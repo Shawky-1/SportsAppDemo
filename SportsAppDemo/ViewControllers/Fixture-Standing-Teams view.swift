@@ -9,6 +9,15 @@ import UIKit
 
 class Fixture_Standing_Teams_view: UIViewController {
     
+    var sport:String = ""
+    var leagueID:Int = 0
+    
+    
+    let teams = FetchTeams()
+    
+    var teamsData:Teams?
+    
+    var teamsNamesArray:[String] = []
     
     @IBOutlet weak var FixtureCollectionView: UICollectionView!
     
@@ -16,6 +25,23 @@ class Fixture_Standing_Teams_view: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        teams.fetchTeams(sport: sport, leagueId: leagueID) { teams in
+            
+            DispatchQueue.main.async {
+                self.TeamsCollectionView.reloadData()
+            }
+            self.teamsData = teams
+            
+            for each in teams!.result.total{
+                let team = each.standing_team!
+                self.teamsNamesArray.append(team)
+                
+            }
+            
+        }
+        
+       
 
     }
     
@@ -33,10 +59,6 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
     }
     
     
-    
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == FixtureCollectionView{
             
@@ -47,7 +69,7 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
             
             
             
-            return 6
+            return teamsNamesArray.count
         }
     }
     
@@ -62,12 +84,33 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
         }
         let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
         
+        cell.teamName.text = teamsNamesArray[indexPath.row]
+       
+        cell.teamImageV.image = UIImage(named: "1")
             
             
             
             
             
             return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if collectionView == FixtureCollectionView{
+            
+            
+            return CGSize(width: 100, height: 100)
+        }
+        else{
+            
+            
+            return CGSize(width: 150, height: 150)
+        }
+        
+        
+        
     }
     
     

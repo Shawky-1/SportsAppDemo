@@ -7,17 +7,5 @@
 
 import Foundation
 
-class Leagues:Decodable{
-    var success:Int?
-    var result:[Items]
-    
-    }
-
-class Items:Decodable{
-    var league_name:String?
-    var league_key:Int?
-    var league_logo:String?
-    
-}
 
 
