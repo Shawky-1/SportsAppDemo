@@ -59,6 +59,7 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
     }
     
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == FixtureCollectionView{
             
@@ -81,18 +82,17 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
             
             
             return cell
+        }else{
+            let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
+            
+            cell.teamName.text = teamsNamesArray[indexPath.row]
+           
+            cell.teamImageV.image = UIImage(named: "1")
+                
+                
+                return cell
         }
-        let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
         
-        cell.teamName.text = teamsNamesArray[indexPath.row]
-       
-        cell.teamImageV.image = UIImage(named: "1")
-            
-            
-            
-            
-            
-            return cell
     }
     
     
@@ -101,7 +101,7 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
         if collectionView == FixtureCollectionView{
             
             
-            return CGSize(width: 100, height: 100)
+            return CGSize(width: 200, height: 200)
         }
         else{
             
@@ -111,6 +111,12 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
         
         
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == TeamsCollectionView{
+            
+        }
     }
     
     
