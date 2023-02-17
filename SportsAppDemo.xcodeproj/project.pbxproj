@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9ECBA2F5299FDD0D00CCB9B2 /* favoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECBA2F4299FDD0D00CCB9B2 /* favoriteViewController.swift */; };
-		9ECBA2F7299FDD6200CCB9B2 /* favoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECBA2F6299FDD6200CCB9B2 /* favoriteCell.swift */; };
 		BC5E70E9299FBFEF002C7F69 /* Fixture-Standing-Teams view.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5E70E8299FBFEF002C7F69 /* Fixture-Standing-Teams view.swift */; };
 		BC5E70EB299FC21D002C7F69 /* FixturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5E70EA299FC21D002C7F69 /* FixturesCollectionViewCell.swift */; };
 		BC5E70ED299FC233002C7F69 /* TeamsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5E70EC299FC233002C7F69 /* TeamsCollectionViewCell.swift */; };
@@ -18,7 +16,6 @@
 		BCA14CCC299E8750005461B0 /* SportsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA14CCB299E8750005461B0 /* SportsTypes.swift */; };
 		BCA14CCE299E9E5C005461B0 /* LeaguesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA14CCD299E9E5C005461B0 /* LeaguesViewController.swift */; };
 		BCA14CD0299E9F42005461B0 /* LeaguesCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA14CCF299E9F42005461B0 /* LeaguesCells.swift */; };
-		BCA14CD3299EABE3005461B0 /* UIScrollView_InfiniteScroll in Frameworks */ = {isa = PBXBuildFile; productRef = BCA14CD2299EABE3005461B0 /* UIScrollView_InfiniteScroll */; };
 		E232FA3C299BAB0300156D4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E232FA3B299BAB0300156D4C /* AppDelegate.swift */; };
 		E232FA3E299BAB0300156D4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E232FA3D299BAB0300156D4C /* SceneDelegate.swift */; };
 		E232FA40299BAB0300156D4C /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E232FA3F299BAB0300156D4C /* HomeVC.swift */; };
@@ -38,8 +35,6 @@
 
 /* Begin PBXFileReference section */
 		0F68947C382DC74E11015AD9 /* Pods-SportsAppDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsAppDemo.debug.xcconfig"; path = "Target Support Files/Pods-SportsAppDemo/Pods-SportsAppDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		9ECBA2F4299FDD0D00CCB9B2 /* favoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favoriteViewController.swift; sourceTree = "<group>"; };
-		9ECBA2F6299FDD6200CCB9B2 /* favoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favoriteCell.swift; sourceTree = "<group>"; };
 		A3907D9FAB1635F07DB768C3 /* Pods-SportsAppDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsAppDemo.release.xcconfig"; path = "Target Support Files/Pods-SportsAppDemo/Pods-SportsAppDemo.release.xcconfig"; sourceTree = "<group>"; };
 		BC5E70E8299FBFEF002C7F69 /* Fixture-Standing-Teams view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fixture-Standing-Teams view.swift"; sourceTree = "<group>"; };
 		BC5E70EA299FC21D002C7F69 /* FixturesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixturesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -75,7 +70,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45285C694A1EA4402826676 /* Pods_SportsAppDemo.framework in Frameworks */,
-				BCA14CD3299EABE3005461B0 /* UIScrollView_InfiniteScroll in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,8 +167,6 @@
 				BC5E70EE299FC2C7002C7F69 /* StandingTableViewCell.swift */,
 				BC5E70EC299FC233002C7F69 /* TeamsCollectionViewCell.swift */,
 				E2B00C84299D46FE0068D393 /* WalkThroughVC.swift */,
-				9ECBA2F4299FDD0D00CCB9B2 /* favoriteViewController.swift */,
-				9ECBA2F6299FDD6200CCB9B2 /* favoriteCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -217,7 +209,6 @@
 			);
 			name = SportsAppDemo;
 			packageProductDependencies = (
-				BCA14CD2299EABE3005461B0 /* UIScrollView_InfiniteScroll */,
 			);
 			productName = SportsAppDemo;
 			productReference = E232FA38299BAB0300156D4C /* SportsAppDemo.app */;
@@ -335,9 +326,7 @@
 				E2B00C81299D1FCF0068D393 /* Fixtures.swift in Sources */,
 				E232FA46299BAB0300156D4C /* SportsAppDemo.xcdatamodeld in Sources */,
 				BCA14CCC299E8750005461B0 /* SportsTypes.swift in Sources */,
-				9ECBA2F7299FDD6200CCB9B2 /* favoriteCell.swift in Sources */,
 				BC5E70EF299FC2C7002C7F69 /* StandingTableViewCell.swift in Sources */,
-				9ECBA2F5299FDD0D00CCB9B2 /* favoriteViewController.swift in Sources */,
 				E2B00C8C299E1C660068D393 /* WalkThroughModel.swift in Sources */,
 				E2B00C85299D46FE0068D393 /* WalkThroughVC.swift in Sources */,
 				BCA14CCE299E9E5C005461B0 /* LeaguesViewController.swift in Sources */,
@@ -573,14 +562,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BCA14CD2299EABE3005461B0 /* UIScrollView_InfiniteScroll */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BCA14CD1299EABE3005461B0 /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */;
-			productName = UIScrollView_InfiniteScroll;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E232FA44299BAB0300156D4C /* SportsAppDemo.xcdatamodeld */ = {

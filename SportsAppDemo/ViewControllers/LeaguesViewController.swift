@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 import Kingfisher
-import UIScrollView_InfiniteScroll
+
 
 class LeaguesViewController: UIViewController {
     
