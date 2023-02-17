@@ -96,6 +96,8 @@ extension LeaguesViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let secVc = self.storyboard?.instantiateViewController(withIdentifier: "Fixture_Standing_Teams_view") as! Fixture_Standing_Teams_view
         
+        secVc.sport = sport
+        secVc.leagueID = LeaguesV?.result[indexPath.row].league_key ?? 0
         
         self.navigationController?.pushViewController(secVc, animated: true)
     }
