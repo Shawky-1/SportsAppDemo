@@ -64,3 +64,52 @@ class FetchTeams{
         
     }
 }
+
+//fetching Upcoming events
+func fetchLeagueFixtures(leagueID: Int , sport: String,complition:@escaping(Fixtures?)->Void){
+    
+    var todayDate = Date()
+    var calenderr = Calendar.current
+    var dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "YYYY-MM-dd"
+    calenderr.timeZone = TimeZone(secondsFromGMT: 0)!
+    let midnight = calenderr.startOfDay(for: todayDate)
+    let tomorrow = calenderr.date(byAdding: .day, value: 1, to: midnight)!
+    var todayInString = dateFormatter.string(from: tomorrow)
+    let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/?met=Fixtures&APIkey=f0c91c252b484b72584eaff6bae73fd89b14cf1171ef9e9964572081f14d2868&from=\(todayInString)&to=\(todayInString)&leagueId=\(leagueID)")
+    
+    AF.request(url!).validate().responseJSON { response in
+        do{
+            let fixtures = try JSONDecoder().decode(Fixtures.self, from: response.data!)
+            complition(fixtures)
+        }catch{
+            //print(error.localizedDescription)
+            print(String(describing: error))
+            complition(nil)
+            
+        }
+    }
+}
+
+
+//fetching today events
+func fetchTodayLeagueMatches(leagueID: Int , sport: String,complition:@escaping(Fixtures?)->Void){
+    
+    let todayDate = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "YYYY-MM-dd"
+    let todayInString = dateFormatter.string(from: todayDate)
+    let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/?met=Fixtures&APIkey=f0c91c252b484b72584eaff6bae73fd89b14cf1171ef9e9964572081f14d2868&from=\(todayInString)&to=\(todayInString)&leagueId=\(leagueID)")
+    
+    AF.request(url!).validate().responseJSON { response in
+        do{
+            let fixtures = try JSONDecoder().decode(Fixtures.self, from: response.data!)
+            complition(fixtures)
+        }catch{
+            //print(error.localizedDescription)
+            print(String(describing: error))
+            complition(nil)
+            
+        }
+    }
+}

@@ -9,4 +9,18 @@ import UIKit
 
 class FixturesCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var HomeTeamLogo: UIView!
+    
+    @IBOutlet weak var AwayTeamLogo: UIView!
+    
+    @IBOutlet weak var HomeTeamName: UILabel!
+    
+    @IBOutlet weak var AwayTeamName: UILabel!
+    
+    
+    
+    
+    
+    
+    
 }

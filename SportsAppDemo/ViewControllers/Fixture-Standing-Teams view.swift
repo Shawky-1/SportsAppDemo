@@ -17,8 +17,10 @@ class Fixture_Standing_Teams_view: UIViewController {
     let teams = FetchTeams()
     
     var teamsData:Teams?
+    var fixturesData: Fixtures?
     
     var teamsNamesArray:[String] = []
+    
     
     @IBOutlet weak var FixtureCollectionView: UICollectionView!
     
@@ -26,6 +28,16 @@ class Fixture_Standing_Teams_view: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchLeagueFixtures(leagueID: leagueID, sport: sport) {  fixtures in
+            guard let fixtureObj = fixtures else {return}
+            self.fixturesData = fixtureObj
+            DispatchQueue.main.async {
+                self.FixtureCollectionView.reloadData()
+            }
+            
+        }
+        
+        //********************
         
         teams.fetchTeams(sport: sport, leagueId: leagueID) { teams in
             
@@ -55,7 +67,7 @@ class Fixture_Standing_Teams_view: UIViewController {
 
 
 /// Fixtures-Teams collection view controller
-extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewDataSource{
+extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -64,30 +76,35 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        var sectionNums = 0
         if collectionView == FixtureCollectionView{
             
             
             
-            return 5
-        }else{
-            
-            
-            
-            return teamsNamesArray.count
+            sectionNums = fixturesData?.result.count ?? 2
+        }else if collectionView == TeamsCollectionView{
+    
+                sectionNums = teamsNamesArray.count
         }
+        return sectionNums
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == FixtureCollectionView{
             let cell = FixtureCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! FixturesCollectionViewCell
-            
-            
-            
+            if fixturesData?.result[indexPath.row].event_home_team == nil {
+                cell.HomeTeamName.text = "no matches today"
+            }else{
+                
+                cell.HomeTeamName.text = fixturesData?.result[indexPath.row].event_home_team
+                cell.AwayTeamName.text = fixturesData?.result[indexPath.row].event_away_team
+            }
             
             return cell
             
             
         }else{
+            
             let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
             
             cell.teamName.text = teamsNamesArray[indexPath.row]
@@ -112,20 +129,20 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+        var CGSizee = CGSize(width: 0, height: 0)
         if collectionView == FixtureCollectionView{
             
             
-            return CGSize(width: 200, height: 200)
-        }
-        else{
+             CGSizee = CGSize(width: 400, height: 200)
+        }else if collectionView == TeamsCollectionView{
             
             
-            return CGSize(width: 150, height: 150)
+            
+             CGSizee = CGSize(width: 150, height: 150)
+            
+            
         }
-        
-        
-        
+        return CGSizee
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
