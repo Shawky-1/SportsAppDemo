@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class Fixture_Standing_Teams_view: UIViewController {
     
@@ -33,8 +34,10 @@ class Fixture_Standing_Teams_view: UIViewController {
             }
             self.teamsData = teams
             
-            for each in teams!.result.total{
-                let team = each.standing_team!
+            guard let cTeams = teams else{return}
+            
+            for each in cTeams.result{
+                let team = each.team_name!
                 self.teamsNamesArray.append(team)
                 
             }
@@ -82,12 +85,24 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
             
             
             return cell
+            
+            
         }else{
             let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
             
             cell.teamName.text = teamsNamesArray[indexPath.row]
            
-            cell.teamImageV.image = UIImage(named: "1")
+            let url = URL(string: (teamsData?.result[indexPath.row].team_logo ?? "") )
+            switch sport{
+            case "football":
+                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "1"))
+            case "basketball":
+                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "2"))
+            case "cricket":
+                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "3"))
+            default:
+                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "4"))
+            }
                 
                 
                 return cell

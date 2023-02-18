@@ -9,19 +9,21 @@ import Foundation
 
 struct Teams:Decodable{
     var success:Int?
-    var result:result2
-}
-
-
-
-struct result2:Decodable{
-    var total:[teamsItems]
-    var home:[teamsItems]
-    var away:[teamsItems]
+    var result:[teamsItems]
 }
 
 
 struct teamsItems:Decodable{
-    var standing_place:Int?
-    var standing_team:String?
+    var team_key:Int?
+    var team_name:String?
+    var team_logo:String?
+    var players:[player]?
+}
+
+struct player:Decodable{
+    var player_name:String?
+    var player_number:String?
+    var player_type:String?
+    var player_age:String?
+    var player_image:String?
 }
