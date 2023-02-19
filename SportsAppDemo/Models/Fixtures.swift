@@ -8,14 +8,14 @@
 import Foundation
 
 
-class Fixtures : Decodable {
+class Fixtures : Codable {
     
     var success : Int?
-    var result : [matchs]
+    var result : [matchs]?
     
 }
 
-class matchs : Decodable{
+class matchs : Codable{
     var event_date : String?
     var event_time : String?
     var event_away_team : String?
@@ -27,5 +27,6 @@ class matchs : Decodable{
     var home_team_logo : String?
     var away_team_logo : String?
     var league_season : String?
-    var  event_live : String?
+    var event_live : String?
+    var event_stadium : String?
 }

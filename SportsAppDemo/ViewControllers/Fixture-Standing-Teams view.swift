@@ -9,213 +9,179 @@ import UIKit
 import Kingfisher
 
 class Fixture_Standing_Teams_view: UIViewController {
-    
     var sport:String = ""
     var leagueID:Int = 0
-    
-    
     let fixturexStandingTeams = Fetch()
-    
-    var teamsData:Teams?
-    var fixturesData: Fixtures?
-    var standingData: Fixtures?
-    
+    var teamsData = Teams()
+    var fixturesData = Fixtures()
+    var standingData = Fixtures()
     var teamsNamesArray:[String] = []
     
-    
     @IBOutlet weak var FixtureCollectionView: UICollectionView!
-    
     @IBOutlet weak var TeamsCollectionView: UICollectionView!
-    
     @IBOutlet weak var standingTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fixturexStandingTeams.fetchLeagueFixtures(leagueID: leagueID, sport: sport) {  fixtures in
-            guard let fixtureObj = fixtures else {return}
-            self.fixturesData = fixtureObj
-            DispatchQueue.main.async {
-                self.FixtureCollectionView.reloadData()
-            }
-            
-            
-        }
-        
-        
-        fixturexStandingTeams.fetchLeagueStandings(leagueID: leagueID, sport: sport) { standings in
-            guard let standingObj = standings else {return}
-            self.standingData = standingObj
-            DispatchQueue.main.async {
-                self.standingTableView.reloadData()
-            }
-            
-        }
-        //********************
-        
-        fixturexStandingTeams.fetchTeams(sport: sport, leagueId: leagueID) { teams in
-            
-            DispatchQueue.main.async {
-                self.TeamsCollectionView.reloadData()
-            }
-            self.teamsData = teams
-            
-            guard let cTeams = teams else{return}
-            
-            for each in cTeams.result{
-                let team = each.team_name!
-                self.teamsNamesArray.append(team)
-                
-            }
-            
-        }
-        
-       
+        setupCells()
+        fetchFixtures()
+        fetchStandings()
+        fetchTeams()
+        self.title = "League Info"
 
     }
     
-
-  
-
+    func fetchFixtures(){
+        fixturexStandingTeams.fetchLeagueFixtures(leagueID: leagueID, sport: sport) { [weak self] fixtures in
+            guard let self = self else {return}
+            switch fixtures{
+            case .success(let fixtures):
+                self.fixturesData = fixtures
+                self.FixtureCollectionView.reloadData()
+            case .failure(let error):
+                //setup for placeholder
+                print(error)
+            }
+        }
+    }
+        
+    func fetchStandings(){
+        fixturexStandingTeams.fetchLeagueStandings(leagueID: leagueID, sport: sport) { [weak self] fixtures in
+            guard let self = self else {return}
+            switch fixtures{
+            case .success(let fixtures):
+                self.standingData = fixtures
+                self.standingTableView.reloadData()
+            case .failure(let error):
+                //setup for placeholder
+                print(error)
+            }
+        }
+    }
+    
+    func fetchTeams(){
+        fixturexStandingTeams.fetchTeams(sport: sport, leagueId: leagueID) {[weak self] teams in
+            guard let self = self else {return}
+            switch teams{
+            case .success(let team):
+                self.teamsData = team
+                self.TeamsCollectionView.reloadData()
+                
+                for index in 0...team.result!.count-1{
+                    self.teamsNamesArray.append((team.result?[index].team_name)!)
+                }
+            case .failure(let error):
+                //setup for placeholder
+                print(error)
+            }
+        }
+    }
+    
+    func setupCells(){
+        FixtureCollectionView.register(UINib(nibName: "FixturesCell", bundle: nil),
+                                       forCellWithReuseIdentifier: "FixturesCell")
+    }
 }
 
 
-/// Fixtures-Teams collection view controller
-extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+//MARK: CollectionViewDataSource
+extension Fixture_Standing_Teams_view:UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var sectionNums = 0
         if collectionView == FixtureCollectionView{
             
-            
-            
-            sectionNums = fixturesData?.result.count ?? 2
+            return fixturesData.result?.count ?? 1
         }else if collectionView == TeamsCollectionView{
-    
-                sectionNums = teamsNamesArray.count
+            
+            return teamsNamesArray.count
+        } else {
+            return 0
         }
-        return sectionNums
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == FixtureCollectionView{
-            let cell = FixtureCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! FixturesCollectionViewCell
-            if fixturesData?.result[indexPath.row].event_home_team == nil {
-                cell.HomeTeamName.text = "no matches today"
-            }else{
-                
-                cell.HomeTeamName.text = fixturesData?.result[indexPath.row].event_home_team
-                cell.AwayTeamName.text = fixturesData?.result[indexPath.row].event_away_team
-                cell.date.text = fixturesData?.result[indexPath.row].event_date
-                cell.time.text = fixturesData?.result[indexPath.row].event_time
-                
-                let homeUrl = URL(string: fixturesData?.result[indexPath.row].home_team_logo ?? "")
-                let awayUrl = URL(string: fixturesData?.result[indexPath.row].away_team_logo ?? "")
-                
-                switch sport{
-                case "football":
-                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "1"))
-                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "1"))
-                case "basketball":
-                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "2"))
-                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "2"))
-                case "cricket":
-                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "3"))
-                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "3"))
-                default:
-                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "4"))
-                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "4"))
-                }
-            }
+        
+        switch collectionView {
+        case FixtureCollectionView:
+            let cell = FixtureCollectionView.dequeueReusableCell(withReuseIdentifier: "FixturesCell", for: indexPath) as! FixturesCell
+            guard let result = fixturesData.result?[indexPath.row] else { return cell}
+            cell.configureCell(match: result)
             
             return cell
-            
-            
-        }else{
-            
+        case TeamsCollectionView:
             let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
+            guard let result = teamsData.result?[indexPath.row] else {return cell}
             
-            cell.teamName.text = teamsNamesArray[indexPath.row]
-           
-            let url = URL(string: (teamsData?.result[indexPath.row].team_logo ?? "") )
-            switch sport{
-            case "football":
-                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "1"))
-            case "basketball":
-                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "2"))
-            case "cricket":
-                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "3"))
-            default:
-                cell.teamImageV.kf.setImage(with: url, placeholder:UIImage(named: "4"))
-            }
-                
-                
-                return cell
+            cell.configureCell(img: result.team_logo!,
+                               teamName: result.team_name!)
+            return cell
+        default:
+            return UICollectionViewCell()
         }
-        
     }
-    
-    
+}
+//MARK: CollectionViewDelegateFlowLayout
+extension Fixture_Standing_Teams_view: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var CGSizee = CGSize(width: 0, height: 0)
         if collectionView == FixtureCollectionView{
+            return CGSize(width: collectionView.bounds.width - 30, height: collectionView.bounds.height - 20)
             
-            
-             CGSizee = CGSize(width: 400, height: 200)
         }else if collectionView == TeamsCollectionView{
+            return CGSize(width: TeamsCollectionView.bounds.height, height: TeamsCollectionView.bounds.height)
             
-            
-            
-             CGSizee = CGSize(width: 150, height: 150)
-            
+        } else{
+            return CGSize(width: 100, height: 200)
             
         }
-        return CGSizee
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 5)
+    }
+}
+
+
+//MARK: CollectionViewDelegate
+extension Fixture_Standing_Teams_view: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == TeamsCollectionView{
             let teamDetails = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
-
+            
             teamDetails.sport = sport
             teamDetails.leagueID = leagueID
             teamDetails.teamName = teamsNamesArray[indexPath.row]
-
+            
             self.navigationController?.pushViewController(teamDetails, animated: true)
         }
     }
-    
-    
-
-    
 }
 
-///  standing table view controller
-extension Fixture_Standing_Teams_view:UITableViewDelegate,UITableViewDataSource{
+//MARK: UITableViewDataSource
+extension Fixture_Standing_Teams_view:UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         
-        return standingData?.result.count ?? 1
+        return standingData.result?.count ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StandingTableViewCell
         
-        cell.homeTeamName.text = standingData?.result[indexPath.row].event_home_team
-        cell.awayTeamName.text = standingData?.result[indexPath.row].event_away_team
-        cell.resultLabel.text = standingData?.result[indexPath.row].event_final_result
+        cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
+        cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
+        cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 70
+        return 100
     }
     
         

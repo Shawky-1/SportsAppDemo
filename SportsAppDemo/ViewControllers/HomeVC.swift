@@ -53,6 +53,7 @@ extension HomeVC: UICollectionViewDelegate{
         let leagueVC = self.storyboard?.instantiateViewController(withIdentifier: "LeaguesViewController") as! LeaguesViewController
         
         leagueVC.sport = sportTypes[indexPath.row].sportName.lowercased()
+        leagueVC.hidesBottomBarWhenPushed = true
 
         self.navigationController?.pushViewController(leagueVC, animated: true)
     }

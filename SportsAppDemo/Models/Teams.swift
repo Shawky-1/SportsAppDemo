@@ -9,7 +9,7 @@ import Foundation
 
 struct Teams:Decodable{
     var success:Int?
-    var result:[teamsItems]
+    var result:[teamsItems]?
 }
 
 
