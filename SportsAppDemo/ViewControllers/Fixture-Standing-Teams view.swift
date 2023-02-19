@@ -116,7 +116,7 @@ extension Fixture_Standing_Teams_view:UICollectionViewDataSource{
             let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
             guard let result = teamsData.result?[indexPath.row] else {return cell}
             
-            cell.configureCell(img: result.team_logo!,
+            cell.configureCell(img: result.team_logo ?? "",
                                teamName: result.team_name!)
             return cell
         default:
