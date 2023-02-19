@@ -28,4 +28,5 @@ class matchs : Decodable{
     var away_team_logo : String?
     var league_season : String?
     var  event_live : String?
+    var event_stadium : String?
 }
