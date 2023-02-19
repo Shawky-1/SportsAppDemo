@@ -72,10 +72,10 @@ func fetchLeagueFixtures(leagueID: Int , sport: String,complition:@escaping(Fixt
     var calenderr = Calendar.current
     var dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "YYYY-MM-dd"
-    calenderr.timeZone = TimeZone(secondsFromGMT: 0)!
-    let midnight = calenderr.startOfDay(for: todayDate)
-    let tomorrow = calenderr.date(byAdding: .day, value: 1, to: midnight)!
-    var todayInString = dateFormatter.string(from: tomorrow)
+    //calenderr.timeZone = TimeZone(secondsFromGMT: 0)!
+    //let midnight = calenderr.startOfDay(for: todayDate)
+    //let tomorrow = calenderr.date(byAdding: .day, value: 1, to: midnight)!
+    var todayInString = dateFormatter.string(from: todayDate)
     let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/?met=Fixtures&APIkey=f0c91c252b484b72584eaff6bae73fd89b14cf1171ef9e9964572081f14d2868&from=\(todayInString)&to=\(todayInString)&leagueId=\(leagueID)")
     
     AF.request(url!).validate().responseJSON { response in

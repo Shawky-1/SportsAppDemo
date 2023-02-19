@@ -9,9 +9,9 @@ import UIKit
 
 class FixturesCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var HomeTeamLogo: UIView!
+    @IBOutlet weak var awayTeamLogo: UIImageView!
     
-    @IBOutlet weak var AwayTeamLogo: UIView!
+    @IBOutlet weak var homeTeamLogo: UIImageView!
     
     @IBOutlet weak var HomeTeamName: UILabel!
     
@@ -19,8 +19,10 @@ class FixturesCollectionViewCell: UICollectionViewCell {
     
     
     
+    @IBOutlet weak var date: UILabel!
     
     
+    @IBOutlet weak var time: UILabel!
     
     
 }

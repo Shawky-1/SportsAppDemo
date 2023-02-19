@@ -98,6 +98,26 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
                 
                 cell.HomeTeamName.text = fixturesData?.result[indexPath.row].event_home_team
                 cell.AwayTeamName.text = fixturesData?.result[indexPath.row].event_away_team
+                cell.date.text = fixturesData?.result[indexPath.row].event_date
+                cell.time.text = fixturesData?.result[indexPath.row].event_time
+                
+                let homeUrl = URL(string: fixturesData?.result[indexPath.row].home_team_logo ?? "")
+                let awayUrl = URL(string: fixturesData?.result[indexPath.row].away_team_logo ?? "")
+                
+                switch sport{
+                case "football":
+                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "1"))
+                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "1"))
+                case "basketball":
+                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "2"))
+                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "2"))
+                case "cricket":
+                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "3"))
+                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "3"))
+                default:
+                    cell.homeTeamLogo.kf.setImage(with: homeUrl, placeholder:UIImage(named: "4"))
+                    cell.awayTeamLogo.kf.setImage(with: awayUrl, placeholder:UIImage(named: "4"))
+                }
             }
             
             return cell
