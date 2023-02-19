@@ -9,15 +9,9 @@ import UIKit
 
 class StandingTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    @IBOutlet weak var homeTeamName: UILabel!
+    
+    @IBOutlet weak var awayTeamName: UILabel!
+    
+    @IBOutlet weak var resultLabel: UILabel!
 }

@@ -14,10 +14,11 @@ class Fixture_Standing_Teams_view: UIViewController {
     var leagueID:Int = 0
     
     
-    let teams = FetchTeams()
+    let fixturexStandingTeams = Fetch()
     
     var teamsData:Teams?
     var fixturesData: Fixtures?
+    var standingData: Fixtures?
     
     var teamsNamesArray:[String] = []
     
@@ -26,20 +27,31 @@ class Fixture_Standing_Teams_view: UIViewController {
     
     @IBOutlet weak var TeamsCollectionView: UICollectionView!
     
+    @IBOutlet weak var standingTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchLeagueFixtures(leagueID: leagueID, sport: sport) {  fixtures in
+        fixturexStandingTeams.fetchLeagueFixtures(leagueID: leagueID, sport: sport) {  fixtures in
             guard let fixtureObj = fixtures else {return}
             self.fixturesData = fixtureObj
             DispatchQueue.main.async {
                 self.FixtureCollectionView.reloadData()
             }
             
+            
         }
         
+        
+        fixturexStandingTeams.fetchLeagueStandings(leagueID: leagueID, sport: sport) { standings in
+            guard let standingObj = standings else {return}
+            self.standingData = standingObj
+            DispatchQueue.main.async {
+                self.standingTableView.reloadData()
+            }
+            
+        }
         //********************
         
-        teams.fetchTeams(sport: sport, leagueId: leagueID) { teams in
+        fixturexStandingTeams.fetchTeams(sport: sport, leagueId: leagueID) { teams in
             
             DispatchQueue.main.async {
                 self.TeamsCollectionView.reloadData()
@@ -187,14 +199,23 @@ extension Fixture_Standing_Teams_view:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         
-        return 1
+        return standingData?.result.count ?? 1
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StandingTableViewCell
-
+        
+        cell.homeTeamName.text = standingData?.result[indexPath.row].event_home_team
+        cell.awayTeamName.text = standingData?.result[indexPath.row].event_away_team
+        cell.resultLabel.text = standingData?.result[indexPath.row].event_final_result
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 70
     }
     
         

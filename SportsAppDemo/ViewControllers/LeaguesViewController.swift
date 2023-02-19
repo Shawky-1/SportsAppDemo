@@ -21,7 +21,7 @@ class LeaguesViewController: UIViewController {
     var leagueNames:[String] = []
     var filteredNames:[String] = []
     
-    let fLeagus = FetchLeagues()
+    let fLeagus = Fetch()
 
     
     
