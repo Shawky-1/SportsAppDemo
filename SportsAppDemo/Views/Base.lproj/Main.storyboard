@@ -401,20 +401,42 @@
             </objects>
             <point key="canvasLocation" x="-599.23664122137404" y="2848.5915492957747"/>
         </scene>
-        <!--View Controller-->
+        <!--Team Details View Controller-->
         <scene sceneID="EMJ-fU-hZ2">
             <objects>
-                <viewController id="i61-tW-O2G" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeamDetailsViewController" id="i61-tW-O2G" customClass="TeamDetailsViewController" customModule="SportsAppDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yPf-3R-8q9">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DoX-Dy-3xt">
+                                <rect key="frame" x="48" y="154" width="226" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".SFNS-Regular" family=".AppleSystemUIFont" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79X-8Q-zeQ">
+                                <rect key="frame" x="314" y="140" width="52" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system" title=""/>
+                                <connections>
+                                    <action selector="AddToFavorite:" destination="i61-tW-O2G" eventType="touchUpInside" id="Uv6-aH-RPJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="hEk-wh-p8K"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="favButton" destination="79X-8Q-zeQ" id="Fy8-gJ-uJU"/>
+                        <outlet property="teamNameLabel" destination="DoX-Dy-3xt" id="XLX-3A-nDm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3wO-3D-BWj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="320" y="2849"/>
+            <point key="canvasLocation" x="319.84732824427482" y="2848.5915492957747"/>
         </scene>
         <!--Walk ThroughVC-->
         <scene sceneID="Yay-Zm-QMI">
@@ -545,6 +567,7 @@
     </scenes>
     <resources>
         <image name="figure.disc.sports" catalog="system" width="128" height="108"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

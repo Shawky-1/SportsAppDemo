@@ -147,7 +147,13 @@ extension Fixture_Standing_Teams_view:UICollectionViewDelegate,UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == TeamsCollectionView{
-            
+            let teamDetails = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+
+            teamDetails.sport = sport
+            teamDetails.leagueID = leagueID
+            teamDetails.teamName = teamsNamesArray[indexPath.row]
+
+            self.navigationController?.pushViewController(teamDetails, animated: true)
         }
     }
     
