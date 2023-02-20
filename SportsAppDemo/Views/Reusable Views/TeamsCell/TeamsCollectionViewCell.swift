@@ -11,7 +11,7 @@ import Kingfisher
 class TeamsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var teamImageV: UIImageView!
-    
+    @IBOutlet weak var teamView: UIView!
     @IBOutlet weak var teamName: UILabel!
     
     
@@ -32,5 +32,6 @@ class TeamsCollectionViewCell: UICollectionViewCell {
             ])
         
         self.teamName.text = teamName
+        teamView.layer.cornerRadius = teamView.bounds.width/2
     }
 }

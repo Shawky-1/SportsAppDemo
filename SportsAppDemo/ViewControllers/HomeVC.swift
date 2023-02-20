@@ -50,7 +50,7 @@ extension HomeVC:UICollectionViewDataSource{
 //MARK: CollectionViewDelegate
 extension HomeVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let leagueVC = self.storyboard?.instantiateViewController(withIdentifier: "LeaguesViewController") as! LeaguesViewController
+        let leagueVC = self.storyboard?.instantiateViewController(withIdentifier: "LeaguesVC") as! LeaguesVC
         
         leagueVC.sport = sportTypes[indexPath.row].sportName.lowercased()
         leagueVC.hidesBottomBarWhenPushed = true

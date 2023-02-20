@@ -10,7 +10,7 @@ import Alamofire
 import Kingfisher
 
 
-class LeaguesViewController: UIViewController {
+class LeaguesVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var namesSearchBar: UISearchBar!
@@ -48,7 +48,7 @@ class LeaguesViewController: UIViewController {
     
 }
 
-extension LeaguesViewController: UITableViewDelegate,UITableViewDataSource{
+extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -94,7 +94,7 @@ extension LeaguesViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let secVc = self.storyboard?.instantiateViewController(withIdentifier: "Fixture_Standing_Teams_view") as! Fixture_Standing_Teams_view
+        let secVc = self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsVC") as! LeagueDetailsVC
         
         secVc.sport = sport
         secVc.leagueID = LeaguesV?.result[indexPath.row].league_key ?? 0
@@ -105,7 +105,7 @@ extension LeaguesViewController: UITableViewDelegate,UITableViewDataSource{
 }
 
 
-extension LeaguesViewController:UISearchBarDelegate{
+extension LeaguesVC:UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != ""{
@@ -123,6 +123,6 @@ extension LeaguesViewController:UISearchBarDelegate{
 }
 
 
-extension LeaguesViewController:UIScrollViewDelegate{
+extension LeaguesVC:UIScrollViewDelegate{
     
 }

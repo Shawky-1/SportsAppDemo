@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class Fixture_Standing_Teams_view: UIViewController {
+class LeagueDetailsVC: UIViewController {
     var sport:String = ""
     var leagueID:Int = 0
     let fixturexStandingTeams = Fetch()
@@ -85,7 +85,7 @@ class Fixture_Standing_Teams_view: UIViewController {
 
 
 //MARK: CollectionViewDataSource
-extension Fixture_Standing_Teams_view:UICollectionViewDataSource{
+extension LeagueDetailsVC:UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -125,7 +125,7 @@ extension Fixture_Standing_Teams_view:UICollectionViewDataSource{
     }
 }
 //MARK: CollectionViewDelegateFlowLayout
-extension Fixture_Standing_Teams_view: UICollectionViewDelegateFlowLayout{
+extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == FixtureCollectionView{
             return CGSize(width: collectionView.bounds.width - 30, height: collectionView.bounds.height - 20)
@@ -146,7 +146,7 @@ extension Fixture_Standing_Teams_view: UICollectionViewDelegateFlowLayout{
 
 
 //MARK: CollectionViewDelegate
-extension Fixture_Standing_Teams_view: UICollectionViewDelegate{
+extension LeagueDetailsVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == TeamsCollectionView{
             let teamDetails = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
@@ -161,7 +161,7 @@ extension Fixture_Standing_Teams_view: UICollectionViewDelegate{
 }
 
 //MARK: UITableViewDataSource
-extension Fixture_Standing_Teams_view:UITableViewDataSource, UITableViewDelegate{
+extension LeagueDetailsVC:UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         
