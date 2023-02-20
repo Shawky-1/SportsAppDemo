@@ -29,7 +29,11 @@ class matchs : Codable{
     var league_season : String?
     var event_live : String?
     var event_stadium : String?
-    var event_date_start:String?
-    var event_home_final_result:String?
-    var event_away_final_result:String?
+    var event_date_start:String?  // creccit
+    var event_home_final_result:String? // creccit
+    var event_away_final_result:String? // creccit
+    var event_first_player: String? // tennis
+    var first_player_key: String? // tennis
+    var event_second_player: String? // tennis
+    var second_player_key:String? // tennis
 }

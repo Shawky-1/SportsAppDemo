@@ -171,10 +171,15 @@ extension LeagueDetailsVC:UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StandingTableViewCell
-        
-        cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
-        cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
-        cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
+        if sport == "tennis"{
+            cell.homeTeamName.text = standingData.result?[indexPath.row].event_first_player
+            cell.awayTeamName.text = standingData.result?[indexPath.row].event_second_player
+            cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
+        }else{
+            cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
+            cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
+            cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
+        }
         return cell
     }
     
