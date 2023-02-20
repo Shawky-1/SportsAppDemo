@@ -67,8 +67,10 @@ class LeagueDetailsVC: UIViewController {
                 self.teamsData = team
                 self.TeamsCollectionView.reloadData()
                 
-                for index in 0...team.result!.count-1{
-                    self.teamsNamesArray.append((team.result?[index].team_name)!)
+                
+                guard let team = team.result else {return}
+                for index in 0...team.count-1{
+                    self.teamsNamesArray.append((team[index].team_name)!)
                 }
             case .failure(let error):
                 //setup for placeholder
