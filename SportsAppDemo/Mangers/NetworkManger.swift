@@ -104,17 +104,19 @@ class Fetch{
         
         let todayDate = Date()
         let calenderr = Calendar.current
-        let dateWeekAgo = calenderr.date(byAdding: .day, value: -7, to: todayDate)
+        let dayAgo = calenderr.date(byAdding: .day, value: -1, to: todayDate)
+        let dateWeekAgo = calenderr.date(byAdding: .day, value: -7, to: dayAgo!)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
         let todayInString = dateFormatter.string(from: todayDate)
+        let dayAgoString = dateFormatter.string(from: dayAgo!)
         let weekAgoDate = dateFormatter.string(from: dateWeekAgo!)
         let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/")
         
         let parameters:[String: Any] = ["met": "Fixtures",
                                         "APIkey": key,
                                         "from": weekAgoDate,
-                                        "to": todayInString,
+                                        "to": dayAgoString,
                                         "leagueId": leagueID]
         
         AF.request(url!, parameters: parameters).validate().response { responseData in
