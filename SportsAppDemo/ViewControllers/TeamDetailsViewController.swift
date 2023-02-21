@@ -16,6 +16,7 @@ class TeamDetailsViewController: UIViewController {
     var leagueID:Int = 0
     var teamName:String = ""
     var coreData = CoreData.coreDataObj
+    var exist = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,17 +28,19 @@ class TeamDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if coreData.itemExists(sportName: sport, leagueID: leagueID, teamName: teamName){
             favButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+            exist = true
         }
     }
 
     @IBAction func AddToFavorite(_ sender: UIButton) {
-        if coreData.itemExists(sportName: sport, leagueID: leagueID, teamName: teamName){
+        if exist{
            sender.setImage(UIImage(systemName: "star"), for: .normal)
            coreData.del(sportName: sport, leagueID: leagueID, teamName: teamName)
        }else{
            sender.setImage(UIImage(systemName: "star.fill"), for: .normal)
            coreData.save(sportName: sport, leagueID: leagueID, teamName: teamName)
        }
+        exist = !exist
     }
     
 }

@@ -15,10 +15,11 @@ class CoreData{
     
     // singleton object
     static let coreDataObj = CoreData()
-    private init(){}
+    private init(){
+        context = appDelegate.persistentContainer.viewContext
+    }
     
     func save(sportName:String, leagueID:Int, teamName:String)->Void {
-        context = appDelegate.persistentContainer.viewContext
         let sportsEntity = NSEntityDescription.entity(forEntityName: "Sports", in: context!)
         
         let team = NSManagedObject(entity: sportsEntity!, insertInto: context!)
