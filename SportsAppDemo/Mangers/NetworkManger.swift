@@ -14,26 +14,27 @@ class Fetch{
     
     private let key = "f0c91c252b484b72584eaff6bae73fd89b14cf1171ef9e9964572081f14d2868"
     
-    func fetchLeagues(sport:String,complition:@escaping (Leagues?)->Void){
-            let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/?met=Leagues&APIkey=948dffee8d69a2f1394c8afa15cf24ce972f8326f28d0e9270e26a9a24779b24")
+    func fetchLeagues(sport:String,complition:@escaping (Result<Leagues, Error>)->Void){
+        let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/")
         
-            AF.request(url!).validate().responseJSON { (response) in
+        let parameters:[String: Any] = ["met": "Leagues",
+                                        "APIkey": key]
+        
+        AF.request(url!, parameters: parameters).validate().response { responseData in
+            
+            switch responseData.result{
+            case .success(let data):
                 do{
-                    let Leagues = try JSONDecoder().decode(Leagues.self, from: response.data!)
-                    complition(Leagues)
-                    
-                    
-                    
+                    let Leagues = try JSONDecoder().decode(Leagues.self, from: data!)
+                    complition(.success(Leagues))
                 }catch{
-                    complition(nil)
-                    print(error.localizedDescription)
+                    complition(.failure(error))
                 }
+            case .failure(let error):
+                complition(.failure(error))
             }
-            
-            
-            
-                
-            }
+        }
+    }
     
     func fetchTeams(sport:String,leagueId:Int,complition:@escaping (Result<Teams, Error>)->Void){
         

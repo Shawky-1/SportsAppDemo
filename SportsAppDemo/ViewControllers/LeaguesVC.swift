@@ -15,36 +15,30 @@ class LeaguesVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var namesSearchBar: UISearchBar!
     
-    
     var sport = ""
-    var LeaguesV:Leagues?
-    var leagueNames:[String] = []
-    var filteredNames:[String] = []
-    
+    var leagues:Leagues?
+    var filteredLeagues:Leagues?
     let fLeagus = Fetch()
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fLeagus.fetchLeagues(sport: sport) { result in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            
-            self.LeaguesV = result
-            
-            for each in result!.result{
-                let title = each.league_name
-                self.leagueNames.append(title!)
-            }
-            
-            self.filteredNames = self.leagueNames
-        }
+        fetchLeagues()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: namesSearchBar)
     }
     
-  
+    func fetchLeagues(){
+        fLeagus.fetchLeagues(sport: sport) { [weak self] result in
+            guard let self = self else {return}
+            switch result{
+            case .success(let leagues):
+                self.leagues = leagues
+                self.filteredLeagues = leagues
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
 }
 
@@ -57,18 +51,18 @@ extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return filteredNames.count
+        return filteredLeagues?.result?.count ?? 0
     }
     
- 
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LeaguesCells
-
+        guard let result = filteredLeagues?.result else {return cell}
         
+        cell.label.text = result[indexPath.row].league_name
+        let url = URL(string: result[indexPath.row].league_logo ?? "")
         
-        cell.label.text = filteredNames[indexPath.row]
-        let url = URL(string: (LeaguesV?.result[indexPath.row].league_logo ?? "") )
         switch sport{
         case "football":
             cell.imageV.kf.setImage(with: url, placeholder:UIImage(named: "1"))
@@ -79,6 +73,7 @@ extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
         default:
             cell.imageV.kf.setImage(with: url, placeholder:UIImage(named: "4"))
         }
+        
         return cell
     }
     
@@ -97,7 +92,7 @@ extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
         let secVc = self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsVC") as! LeagueDetailsVC
         
         secVc.sport = sport
-        secVc.leagueID = LeaguesV?.result[indexPath.row].league_key ?? 0
+        secVc.leagueID = filteredLeagues?.result?[indexPath.row].league_key ?? 0
         
         self.navigationController?.pushViewController(secVc, animated: true)
     }
@@ -107,16 +102,26 @@ extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
 
 extension LeaguesVC:UISearchBarDelegate{
     
+    //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    //        if searchText != ""{
+    //            filteredLeagues?.result?.removeAll()
+    //            self.filteredLeagues?.result = self.leagues?.result?.filter{
+    //                $0.league_name.contains(searchText)}
+    //            self.tableView.reloadData()
+    //        }else{
+    //            self.filteredLeagues?.result = self.leagues?.result
+    //            self.tableView.reloadData()
+    //        }
+    //    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText != ""{
-            filteredNames.removeAll()
-            self.filteredNames = self.leagueNames.filter{$0 .contains(searchText)}
-            self.tableView.reloadData()
-            print(searchText)
-            
-        }else{
-            self.filteredNames = self.leagueNames
-            self.tableView.reloadData()
+        if searchText.isEmpty {
+            filteredLeagues = leagues
+            tableView.reloadData()
+        } else {
+            filteredLeagues?.result = leagues?.result?.filter{
+                $0.league_name.lowercased().contains(searchText.lowercased()) }
+            tableView.reloadData()
         }
     }
     

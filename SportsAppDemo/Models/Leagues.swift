@@ -8,15 +8,18 @@
 import Foundation
 
 
-class Leagues:Decodable{
-    var success:Int?
-    var result:[Items]
-    
+struct Leagues: Codable{
+    var success:Int
+    var result:[Items]?
+    init(success: Int, result: [Items]? = nil) {
+        self.success = success
+        self.result = result
     }
+}
 
-class Items:Decodable{
-    var league_name:String?
-    var league_key:Int?
+struct Items: Codable{
+    var league_name:String
+    var league_key:Int
     var league_logo:String?
     
 }

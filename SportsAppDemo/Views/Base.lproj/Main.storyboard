@@ -196,30 +196,31 @@
                                     <outlet property="delegate" destination="t5V-wM-MxB" id="n2m-v9-Qj4"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="UQH-IE-d18">
-                                <rect key="frame" x="-5" y="93" width="392" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="t5V-wM-MxB" id="dFf-me-6vH"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fyQ-is-Akr"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="ip4-5K-dsG" firstAttribute="top" secondItem="fyQ-is-Akr" secondAttribute="top" constant="44" id="JRn-VL-zzj"/>
+                            <constraint firstItem="ip4-5K-dsG" firstAttribute="top" secondItem="fyQ-is-Akr" secondAttribute="top" id="JRn-VL-zzj"/>
                             <constraint firstItem="fyQ-is-Akr" firstAttribute="trailing" secondItem="ip4-5K-dsG" secondAttribute="trailing" id="Kjb-EO-lMg"/>
                             <constraint firstItem="ip4-5K-dsG" firstAttribute="leading" secondItem="fyQ-is-Akr" secondAttribute="leading" id="LHo-z4-Hwy"/>
                             <constraint firstItem="fyQ-is-Akr" firstAttribute="bottom" secondItem="ip4-5K-dsG" secondAttribute="bottom" id="hwz-7Y-w2O"/>
                         </constraints>
                     </view>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="namesSearchBar" destination="UQH-IE-d18" id="arh-7g-AJ2"/>
                         <outlet property="tableView" destination="ip4-5K-dsG" id="icK-77-DoA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZY-9z-4Vh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Search" id="UQH-IE-d18">
+                    <rect key="frame" x="0.0" y="0.0" width="392" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="t5V-wM-MxB" id="dFf-me-6vH"/>
+                    </connections>
+                </searchBar>
             </objects>
             <point key="canvasLocation" x="-599.23664122137404" y="2164.7887323943664"/>
         </scene>
