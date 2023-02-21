@@ -22,6 +22,7 @@ class LeaguesVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Leagues"
         fetchLeagues()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: namesSearchBar)
     }
@@ -83,10 +84,6 @@ extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
         return 130
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return "Leagues"
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let secVc = self.storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsVC") as! LeagueDetailsVC

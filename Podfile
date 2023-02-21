@@ -8,6 +8,8 @@ target 'SportsAppDemo' do
   # Pods for SportsAppDemo
   pod 'Alamofire'
   pod 'Kingfisher'
+  pod 'SkeletonView'
+
 
 
 end

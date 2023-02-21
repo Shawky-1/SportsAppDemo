@@ -9,13 +9,15 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    let sportTypes = [SportType(sportName: "Football", sportImage: "1"),
-                      SportType(sportName: "Basketball", sportImage: "2"),
-                      SportType(sportName: "Cricket", sportImage: "3"),
-                      SportType(sportName: "Tennis", sportImage: "4")]
+    let sportTypes = [SportType(sportName: "Football", sportImage: "FootBall"),
+                      SportType(sportName: "Basketball", sportImage: "BasketBall"),
+                      SportType(sportName: "Cricket", sportImage: "Cricket"),
+                      SportType(sportName: "Tennis", sportImage: "Tennis")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = "Sports"
         showWalkThrough()
     }
     
@@ -68,6 +70,6 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
     }
 }
