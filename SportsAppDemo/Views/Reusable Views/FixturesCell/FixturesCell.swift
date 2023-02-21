@@ -36,7 +36,7 @@ class FixturesCell: UICollectionViewCell {
         
         
         HomeImgView.kf.setImage(
-            with: URL(string: match.home_team_logo ?? ""),
+            with: URL(string: match.home_team_logo ?? ""), placeholder: UIImage(named: "6"),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),
@@ -45,7 +45,7 @@ class FixturesCell: UICollectionViewCell {
             ])
         
         awayImgView.kf.setImage(
-            with: URL(string: match.away_team_logo ?? ""),
+            with: URL(string: match.away_team_logo ?? ""),placeholder: UIImage(named: "6"),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),

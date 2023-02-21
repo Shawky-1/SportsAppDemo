@@ -23,7 +23,7 @@ class TeamsCollectionViewCell: UICollectionViewCell {
         
         
         teamImageV.kf.setImage(
-            with: URL(string: img),
+            with: URL(string: img), placeholder: UIImage(named: "6"),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),

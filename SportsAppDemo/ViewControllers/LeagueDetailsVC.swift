@@ -181,6 +181,13 @@ extension LeagueDetailsVC: UICollectionViewDelegate{
                 teamDetails.sport = sport
                 teamDetails.leagueID = leagueID
                 teamDetails.teamName = teamsNamesArray[indexPath.row]
+            teamDetails.teamLogo = teamsData.result?[indexPath.row].team_logo ?? ""
+            
+            if sport == "football"{
+                guard let players = (teamsData.result?[indexPath.row].players) else {return}
+                
+                teamDetails.PlayersDetails = players
+            }
             
             self.navigationController?.pushViewController(teamDetails, animated: true)
         }
@@ -215,6 +222,8 @@ extension LeagueDetailsVC:UITableViewDataSource, UITableViewDelegate{
         
         return 100
     }
+    
+  
     
         
     }
