@@ -15,6 +15,7 @@ class LeagueDetailsVC: UIViewController {
     var teamsData = Teams()
     var fixturesData = Fixtures()
     var standingData = Fixtures()
+    var tennisPlayersData = Fixtures()
     var teamsNamesArray:[String] = []
     
     @IBOutlet weak var FixtureCollectionView: UICollectionView!
@@ -27,7 +28,9 @@ class LeagueDetailsVC: UIViewController {
         fetchFixtures()
         fetchStandings()
         fetchTeams()
+        fetchTennisPlayers()
         self.title = "League Info"
+       
 
     }
     
@@ -78,6 +81,22 @@ class LeagueDetailsVC: UIViewController {
             }
         }
     }
+    func fetchTennisPlayers(){
+        fixturexStandingTeams.fetchTennisPlayers { [weak self]players in
+            guard let self = self else {return}
+            switch players{
+            case .success(let player):
+                self.tennisPlayersData = player
+                self.TeamsCollectionView.reloadData()
+
+                print(self.tennisPlayersData.result![1].player!)
+                
+            case .failure(let error):
+                //setup for placeholder
+                print(error)
+            }
+        }
+    }
     
     func setupCells(){
         FixtureCollectionView.register(UINib(nibName: "FixturesCell", bundle: nil),
@@ -117,9 +136,15 @@ extension LeagueDetailsVC:UICollectionViewDataSource{
         case TeamsCollectionView:
             let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
             guard let result = teamsData.result?[indexPath.row] else {return cell}
+        
+            if sport == "tennis"{
+                cell.configureCell(img: "3", teamName: tennisPlayersData.result?[indexPath.row].player ?? "")
+            }else{
+                cell.configureCell(img: result.team_logo ?? "",
+                                   teamName: result.team_name!)
+            }
             
-            cell.configureCell(img: result.team_logo ?? "",
-                               teamName: result.team_name!)
+            
             return cell
         default:
             return UICollectionViewCell()
@@ -153,9 +178,9 @@ extension LeagueDetailsVC: UICollectionViewDelegate{
         if collectionView == TeamsCollectionView{
             let teamDetails = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
             
-            teamDetails.sport = sport
-            teamDetails.leagueID = leagueID
-            teamDetails.teamName = teamsNamesArray[indexPath.row]
+                teamDetails.sport = sport
+                teamDetails.leagueID = leagueID
+                teamDetails.teamName = teamsNamesArray[indexPath.row]
             
             self.navigationController?.pushViewController(teamDetails, animated: true)
         }

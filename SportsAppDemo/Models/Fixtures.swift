@@ -36,4 +36,5 @@ class matchs : Codable{
     var first_player_key: String? // tennis
     var event_second_player: String? // tennis
     var second_player_key:String? // tennis
+    var player:String?
 }
