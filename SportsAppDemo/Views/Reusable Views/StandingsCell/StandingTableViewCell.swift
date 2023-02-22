@@ -14,4 +14,11 @@ class StandingTableViewCell: UITableViewCell {
     @IBOutlet weak var awayTeamName: UILabel!
     
     @IBOutlet weak var resultLabel: UILabel!
+    
+    
+    @IBOutlet weak var cRes1: UILabel!
+    
+    
+    
+    @IBOutlet weak var cRes2: UILabel!
 }
