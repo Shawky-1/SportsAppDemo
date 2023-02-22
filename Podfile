@@ -9,7 +9,7 @@ target 'SportsAppDemo' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'SkeletonView'
-
+  pod 'ReachabilitySwift'
 
 
 end

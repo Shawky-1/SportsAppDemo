@@ -8,13 +8,15 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import SkeletonView
 
 
 class LeaguesVC: UIViewController {
     
+    @IBOutlet weak var imgPlaceHolder: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var namesSearchBar: UISearchBar!
-    
+    let dummyItems = Items(league_name: "Test", league_key: 0)
     var sport = ""
     var leagues:Leagues?
     var filteredLeagues:Leagues?
@@ -23,9 +25,16 @@ class LeaguesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Leagues"
+        filteredLeagues = Leagues(success: 1, result: [dummyItems])
         fetchLeagues()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: namesSearchBar)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos), animation: nil, transition: .crossDissolve(0.25))
+    }
+    
+    
     
     func fetchLeagues(){
         fLeagus.fetchLeagues(sport: sport) { [weak self] result in
@@ -34,16 +43,22 @@ class LeaguesVC: UIViewController {
             case .success(let leagues):
                 self.leagues = leagues
                 self.filteredLeagues = leagues
-                self.tableView.reloadData()
+                self.tableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
             case .failure(let error):
                 print(error)
+                self.tableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                self.tableView.isHidden = true
+                self.imgPlaceHolder.image = UIImage(named: "no_internet")
+                self.filteredLeagues = nil
+
+                
             }
         }
     }
     
 }
 
-extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
+extension LeaguesVC: UITableViewDelegate,SkeletonTableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -92,6 +107,20 @@ extension LeaguesVC: UITableViewDelegate,UITableViewDataSource{
         secVc.leagueID = filteredLeagues?.result?[indexPath.row].league_key ?? 0
         
         self.navigationController?.pushViewController(secVc, animated: true)
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "cell"
+    }
+    
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    func collectionSkeletonView(_ skeletonView: UITableView, skeletonCellForRowAt indexPath: IndexPath) -> UITableViewCell? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LeaguesCells
+        cell.imageV.layer.cornerRadius = cell.imageV.bounds.width / 2
+        return cell
     }
     
 }

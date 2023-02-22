@@ -103,7 +103,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="191" height="324"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FootBall-BackGround" translatesAutoresizingMaskIntoConstraints="NO" id="hCs-ZL-ANW">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hCs-ZL-ANW">
                                                     <rect key="frame" x="15" y="15" width="161" height="294"/>
                                                 </imageView>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDm-T6-L8t">
@@ -187,6 +187,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K70-U7-jqk">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="1" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ip4-5K-dsG">
                                 <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -200,12 +203,21 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TLj-Yd-2kD">
                                                     <rect key="frame" x="30" y="14" width="100" height="100"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O09-dz-9wR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O09-dz-9wR">
                                                     <rect key="frame" x="150" y="10" width="228" height="108"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -216,18 +228,30 @@
                                                 <constraint firstItem="O09-dz-9wR" firstAttribute="leading" secondItem="TLj-Yd-2kD" secondAttribute="trailing" constant="20" id="kJf-Wu-0VQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="O09-dz-9wR" secondAttribute="bottom" constant="10" id="pqF-O7-da1"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="TLj-Yd-2kD" firstAttribute="height" secondItem="abe-oF-SpB" secondAttribute="height" multiplier="0.78125" id="fLD-R3-qyO"/>
                                             <constraint firstItem="TLj-Yd-2kD" firstAttribute="width" secondItem="abe-oF-SpB" secondAttribute="width" multiplier="0.254453" id="iCh-UR-VCq"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="imageV" destination="TLj-Yd-2kD" id="WeQ-hq-dbv"/>
                                             <outlet property="label" destination="O09-dz-9wR" id="vt3-xV-ePQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="t5V-wM-MxB" id="7Ow-4F-wpm"/>
                                     <outlet property="delegate" destination="t5V-wM-MxB" id="n2m-v9-Qj4"/>
@@ -237,14 +261,22 @@
                         <viewLayoutGuide key="safeArea" id="fyQ-is-Akr"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="K70-U7-jqk" firstAttribute="leading" secondItem="fyQ-is-Akr" secondAttribute="leading" id="IES-CW-PEH"/>
                             <constraint firstItem="ip4-5K-dsG" firstAttribute="top" secondItem="fyQ-is-Akr" secondAttribute="top" id="JRn-VL-zzj"/>
                             <constraint firstItem="fyQ-is-Akr" firstAttribute="trailing" secondItem="ip4-5K-dsG" secondAttribute="trailing" id="Kjb-EO-lMg"/>
                             <constraint firstItem="ip4-5K-dsG" firstAttribute="leading" secondItem="fyQ-is-Akr" secondAttribute="leading" id="LHo-z4-Hwy"/>
+                            <constraint firstItem="fyQ-is-Akr" firstAttribute="trailing" secondItem="K70-U7-jqk" secondAttribute="trailing" id="Wit-nx-yrg"/>
                             <constraint firstItem="fyQ-is-Akr" firstAttribute="bottom" secondItem="ip4-5K-dsG" secondAttribute="bottom" id="hwz-7Y-w2O"/>
+                            <constraint firstItem="fyQ-is-Akr" firstAttribute="bottom" secondItem="K70-U7-jqk" secondAttribute="bottom" id="ilW-6a-uVM"/>
+                            <constraint firstItem="K70-U7-jqk" firstAttribute="top" secondItem="fyQ-is-Akr" secondAttribute="top" id="sfn-Vw-NTu"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="imgPlaceHolder" destination="K70-U7-jqk" id="tcD-9y-Vci"/>
                         <outlet property="namesSearchBar" destination="UQH-IE-d18" id="arh-7g-AJ2"/>
                         <outlet property="tableView" destination="ip4-5K-dsG" id="icK-77-DoA"/>
                     </connections>
@@ -666,7 +698,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FootBall-BackGround" width="612" height="530"/>
         <image name="figure.disc.sports" catalog="system" width="128" height="108"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="secondarySystemBackgroundColor">
