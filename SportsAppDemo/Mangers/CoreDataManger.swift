@@ -19,13 +19,15 @@ class CoreData{
         context = appDelegate.persistentContainer.viewContext
     }
     
-    func save(sportName:String, leagueID:Int, teamName:String)->Void {
+    func save(sportName:String, leagueID:Int, teamName:String, teamLogo:String, players:[player])->Void {
         let sportsEntity = NSEntityDescription.entity(forEntityName: "Sports", in: context!)
         
         let team = NSManagedObject(entity: sportsEntity!, insertInto: context!)
         team.setValue(sportName, forKey: "sportName")
         team.setValue(leagueID, forKey: "leagueID")
         team.setValue(teamName, forKey: "teamName")
+        team.setValue(teamLogo, forKey: "teamLogo")
+        team.setValue(players, forKey: "players")
         
         try? context?.save()
         print("object saved")
@@ -48,9 +50,9 @@ class CoreData{
         print("object deleted")
     }
    
-    func itemExists(sportName:String, leagueID:Int, teamName:String) -> Bool {
+    func itemExists(sportName:String, teamName:String) -> Bool {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Sports")
-        fetchRequest.predicate = NSPredicate(format: "sportName == %@ AND leagueID == %ld AND teamName == %@", sportName, leagueID, teamName)
+        fetchRequest.predicate = NSPredicate(format: "sportName == %@ AND teamName == %@", sportName, teamName)
         let results = try? context?.fetch(fetchRequest)
         
         return results?.count ?? 0 > 0

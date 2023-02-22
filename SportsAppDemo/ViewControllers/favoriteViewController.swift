@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Kingfisher
 
 class favoriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
@@ -38,6 +39,9 @@ class favoriteViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favTable.dequeueReusableCell(withIdentifier: "favCell") as! favoriteCell
+        
+        let logo = URL(string: favArray[indexPath.row].value(forKey: "teamLogo") as? String ?? "")
+        cell.favTeamLogo.kf.setImage(with: logo, placeholder:UIImage(named: "6"))
         
         cell.favLabel.text = favArray[indexPath.row].value(forKey: "teamName") as? String
         
@@ -80,12 +84,14 @@ class favoriteViewController: UIViewController, UITableViewDelegate, UITableView
         teamDetails.sport = favArray[indexPath.row].value(forKey: "sportName") as! String
         teamDetails.leagueID = favArray[indexPath.row].value(forKey: "leagueID") as! Int
         teamDetails.teamName = favArray[indexPath.row].value(forKey: "teamName") as! String
+        teamDetails.teamLogo = favArray[indexPath.row].value(forKey: "teamLogo") as! String
+        teamDetails.PlayersDetails = favArray[indexPath.row].value(forKey: "players") as! [player]
 
         self.navigationController?.pushViewController(teamDetails, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
+        return 100
     }
 
 }

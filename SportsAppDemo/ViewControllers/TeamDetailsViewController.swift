@@ -35,7 +35,7 @@ class TeamDetailsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if coreData.itemExists(sportName: sport, leagueID: leagueID, teamName: teamName){
+        if coreData.itemExists(sportName: sport, teamName: teamName){
             favButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
             exist = true
         }
@@ -47,7 +47,7 @@ class TeamDetailsViewController: UIViewController {
            coreData.del(sportName: sport, leagueID: leagueID, teamName: teamName)
        }else{
            sender.setImage(UIImage(systemName: "star.fill"), for: .normal)
-           coreData.save(sportName: sport, leagueID: leagueID, teamName: teamName)
+           coreData.save(sportName: sport, leagueID: leagueID, teamName: teamName, teamLogo: teamLogo, players: PlayersDetails)
        }
         exist = !exist
     }
