@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import Kingfisher
 import SkeletonView
+import Reachability
 
 
 class LeaguesVC: UIViewController {
@@ -25,13 +26,28 @@ class LeaguesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Leagues"
+        checkConnection()
         filteredLeagues = Leagues(success: 1, result: [dummyItems])
-        fetchLeagues()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: namesSearchBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos), animation: nil, transition: .crossDissolve(0.25))
+        if leagues == nil{
+            tableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos),
+                                                   animation: nil,
+                                                   transition: .crossDissolve(0.25))
+        }
+    }
+    
+    func checkConnection(){
+        let reachability = try! Reachability()
+        
+        if reachability.connection != .unavailable {
+            fetchLeagues()
+        } else {
+            self.tableView.isHidden = true
+            self.imgPlaceHolder.image = UIImage(named: "no_internet")
+        }
     }
     
     
