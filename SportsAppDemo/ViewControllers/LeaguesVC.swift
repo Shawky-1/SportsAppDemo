@@ -26,6 +26,7 @@ class LeaguesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Leagues"
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         checkConnection()
         filteredLeagues = Leagues(success: 1, result: [dummyItems])
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: namesSearchBar)
@@ -93,6 +94,16 @@ extension LeaguesVC: UITableViewDelegate,SkeletonTableViewDataSource{
         guard let result = filteredLeagues?.result else {return cell}
         
         cell.label.text = result[indexPath.row].league_name
+        cell.backView.layer.cornerRadius = 20
+        cell.backView.backgroundColor = .systemGray5
+        cell.backView.layer.shadowRadius = 3
+        cell.backView.layer.shadowOpacity = 0.5
+        cell.backView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.clear
+        cell.selectedBackgroundView = backgroundView
+        
         let url = URL(string: result[indexPath.row].league_logo ?? "")
         
         switch sport{
@@ -112,7 +123,7 @@ extension LeaguesVC: UITableViewDelegate,SkeletonTableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 130
+        return tableView.bounds.height / 6.3
     }
     
     

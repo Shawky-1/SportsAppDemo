@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class LeagueDetailsVC: UIViewController {
     var sport:String = ""
@@ -17,6 +18,8 @@ class LeagueDetailsVC: UIViewController {
     var standingData = Fixtures()
     var tennisPlayersData = Fixtures()
     var teamsNamesArray:[String] = []
+    let dummyMatches = matchs()
+    let dummyTeams = teamsItems(team_key: 0, team_name: "", team_logo: "", players: nil)
     
     @IBOutlet weak var FixtureCollectionView: UICollectionView!
     @IBOutlet weak var TeamsCollectionView: UICollectionView!
@@ -25,13 +28,37 @@ class LeagueDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCells()
+        standingData.result = [dummyMatches]
+        teamsData.result = [dummyTeams]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        standingTableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos),
+                                                       animation: nil,
+                                                       transition: .crossDissolve(0.25))
+        TeamsCollectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos),
+                                                         animation: nil,
+                                                         transition: .crossDissolve(0.25))
+        
+        FixtureCollectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos),
+                                                           animation: nil,
+                                                           transition: .crossDissolve(0.25))
+        
+    }
+}
+
+
+extension LeagueDetailsVC{
+    
+    func setupCells(){
+        FixtureCollectionView.register(UINib(nibName: "FixturesCell", bundle: nil),
+                                       forCellWithReuseIdentifier: "FixturesCell")
         fetchFixtures()
         fetchStandings()
         fetchTeams()
         fetchTennisPlayers()
         self.title = "League Info"
-       
-
     }
     
     func fetchFixtures(){
@@ -40,23 +67,22 @@ class LeagueDetailsVC: UIViewController {
             switch fixtures{
             case .success(let fixtures):
                 self.fixturesData = fixtures
-                self.FixtureCollectionView.reloadData()
+                self.FixtureCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+
             case .failure(let error):
-                //setup for placeholder
                 print(error)
             }
         }
     }
-        
+    
     func fetchStandings(){
         fixturexStandingTeams.fetchLeagueStandings(leagueID: leagueID, sport: sport) { [weak self] fixtures in
             guard let self = self else {return}
             switch fixtures{
             case .success(let fixtures):
                 self.standingData = fixtures
-                self.standingTableView.reloadData()
+                self.standingTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
             case .failure(let error):
-                //setup for placeholder
                 print(error)
             }
         }
@@ -68,9 +94,7 @@ class LeagueDetailsVC: UIViewController {
             switch teams{
             case .success(let team):
                 self.teamsData = team
-                self.TeamsCollectionView.reloadData()
-                
-                
+                self.TeamsCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 guard let team = team.result else {return}
                 for index in 0...team.count-1{
                     self.teamsNamesArray.append((team[index].team_name)!)
@@ -87,26 +111,51 @@ class LeagueDetailsVC: UIViewController {
             switch players{
             case .success(let player):
                 self.tennisPlayersData = player
-                self.TeamsCollectionView.reloadData()
-
-                print(self.tennisPlayersData.result![1].player!)
-                
+                self.TeamsCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
             case .failure(let error):
                 //setup for placeholder
                 print(error)
             }
         }
     }
-    
-    func setupCells(){
-        FixtureCollectionView.register(UINib(nibName: "FixturesCell", bundle: nil),
-                                       forCellWithReuseIdentifier: "FixturesCell")
-    }
 }
 
 
 //MARK: CollectionViewDataSource
-extension LeagueDetailsVC:UICollectionViewDataSource{
+extension LeagueDetailsVC:SkeletonCollectionViewDataSource{
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
+        switch skeletonView{
+        case FixtureCollectionView:
+            return "FixturesCell"
+        case TeamsCollectionView:
+            return "item"
+        default:
+            return ""
+        }
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, skeletonCellForItemAt indexPath: IndexPath) -> UICollectionViewCell? {
+        switch skeletonView {
+        case FixtureCollectionView:
+            let cell = FixtureCollectionView.dequeueReusableCell(withReuseIdentifier: "FixturesCell", for: indexPath) as! FixturesCell
+            
+            return cell
+        case TeamsCollectionView:
+            let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
+            cell.teamImageV.skeletonCornerRadius = Float(cell.teamImageV.bounds.width / 2)
+            cell.backgroundView?.backgroundColor = .clear
+            cell.teamName.text = ""
+            
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
+    }
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -117,8 +166,12 @@ extension LeagueDetailsVC:UICollectionViewDataSource{
             
             return fixturesData.result?.count ?? 1
         }else if collectionView == TeamsCollectionView{
-            
-            return teamsNamesArray.count
+            if sport == "tennis"{
+                return tennisPlayersData.result?.count ?? 0
+            } else {
+                return teamsNamesArray.count
+                
+            }
         } else {
             return 0
         }
@@ -129,19 +182,18 @@ extension LeagueDetailsVC:UICollectionViewDataSource{
         switch collectionView {
         case FixtureCollectionView:
             let cell = FixtureCollectionView.dequeueReusableCell(withReuseIdentifier: "FixturesCell", for: indexPath) as! FixturesCell
-            guard let result = fixturesData.result?[indexPath.row] else { return cell}
-            cell.configureCell(match: result,sport: sport)
+            //            guard let result = fixturesData.result?[indexPath.row] else { return cell}
+            cell.configureCell(match: fixturesData.result?[indexPath.row] ?? dummyMatches,sport: sport)
             
             return cell
         case TeamsCollectionView:
             let cell = TeamsCollectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as! TeamsCollectionViewCell
-            guard let result = teamsData.result?[indexPath.row] else {return cell}
-        
+            cell.teamView.backgroundColor = .secondarySystemBackground
             if sport == "tennis"{
-                cell.configureCell(img: "3", teamName: tennisPlayersData.result?[indexPath.row].player ?? "")
+                cell.teamName.text = tennisPlayersData.result?[indexPath.row].player ?? ""
             }else{
-                cell.configureCell(img: result.team_logo ?? "",
-                                   teamName: result.team_name!)
+                cell.configureCell(img: teamsData.result?[indexPath.row].team_logo ?? "",
+                                   teamName: teamsData.result?[indexPath.row].team_name ?? "")
             }
             
             
@@ -155,7 +207,7 @@ extension LeagueDetailsVC:UICollectionViewDataSource{
 extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == FixtureCollectionView{
-            return CGSize(width: collectionView.bounds.width - 30, height: collectionView.bounds.height - 20)
+            return CGSize(width: collectionView.bounds.width - 10, height: collectionView.bounds.height - 20)
             
         }else if collectionView == TeamsCollectionView{
             return CGSize(width: TeamsCollectionView.bounds.height, height: TeamsCollectionView.bounds.height)
@@ -167,7 +219,7 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 5)
+        UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
 }
 
@@ -178,9 +230,9 @@ extension LeagueDetailsVC: UICollectionViewDelegate{
         if collectionView == TeamsCollectionView{
             let teamDetails = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
             
-                teamDetails.sport = sport
-                teamDetails.leagueID = leagueID
-                teamDetails.teamName = teamsNamesArray[indexPath.row]
+            teamDetails.sport = sport
+            teamDetails.leagueID = leagueID
+            teamDetails.teamName = teamsNamesArray[indexPath.row]
             teamDetails.teamLogo = teamsData.result?[indexPath.row].team_logo ?? ""
             
             if sport == "football"{
@@ -195,7 +247,7 @@ extension LeagueDetailsVC: UICollectionViewDelegate{
 }
 
 //MARK: UITableViewDataSource
-extension LeagueDetailsVC:UITableViewDataSource, UITableViewDelegate{
+extension LeagueDetailsVC:UITableViewDataSource, SkeletonTableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         
@@ -205,10 +257,10 @@ extension LeagueDetailsVC:UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StandingTableViewCell
-       
-            cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
-            cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
-            cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
+        
+        cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
+        cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
+        cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
         cell.cRes1.text = standingData.result?[indexPath.row].event_home_final_result
         cell.cRes2.text = standingData.result?[indexPath.row].event_away_final_result
         
@@ -221,7 +273,22 @@ extension LeagueDetailsVC:UITableViewDataSource, UITableViewDelegate{
         return 100
     }
     
-  
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "cell"
+    }
     
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, skeletonCellForRowAt indexPath: IndexPath) -> UITableViewCell? {
+        let cell = skeletonView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StandingTableViewCell
+        
+        return cell
         
     }
+    
+    
+    
+    
+}

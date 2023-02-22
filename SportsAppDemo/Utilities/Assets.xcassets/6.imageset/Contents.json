@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "badge-placeholder.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "badge-placeholder.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

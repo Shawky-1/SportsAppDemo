@@ -13,6 +13,6 @@ class LeaguesCells: UITableViewCell {
     
     @IBOutlet weak var imageV: UIImageView!
     
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var label: UILabel!
-
 }
