@@ -26,6 +26,8 @@ class matchs : Codable{
     var league_logo : String?
     var home_team_logo : String?
     var away_team_logo : String?
+    var event_home_team_logo:String?
+    var event_away_team_logo:String?
     var league_season : String?
     var event_live : String?
     var event_stadium : String?

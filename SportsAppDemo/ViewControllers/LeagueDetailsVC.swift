@@ -130,7 +130,7 @@ extension LeagueDetailsVC:UICollectionViewDataSource{
         case FixtureCollectionView:
             let cell = FixtureCollectionView.dequeueReusableCell(withReuseIdentifier: "FixturesCell", for: indexPath) as! FixturesCell
             guard let result = fixturesData.result?[indexPath.row] else { return cell}
-            cell.configureCell(match: result)
+            cell.configureCell(match: result,sport: sport)
             
             return cell
         case TeamsCollectionView:
