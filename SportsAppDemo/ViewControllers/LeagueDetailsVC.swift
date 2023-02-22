@@ -30,10 +30,13 @@ class LeagueDetailsVC: UIViewController {
         setupCells()
         standingData.result = [dummyMatches]
         teamsData.result = [dummyTeams]
+        showSkeletonViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    func showSkeletonViews(){
         standingTableView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos),
                                                        animation: nil,
                                                        transition: .crossDissolve(0.25))
@@ -44,7 +47,6 @@ class LeagueDetailsVC: UIViewController {
         FixtureCollectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .asbestos),
                                                            animation: nil,
                                                            transition: .crossDissolve(0.25))
-        
     }
 }
 
@@ -94,11 +96,12 @@ extension LeagueDetailsVC{
             switch teams{
             case .success(let team):
                 self.teamsData = team
-                self.TeamsCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 guard let team = team.result else {return}
                 for index in 0...team.count-1{
                     self.teamsNamesArray.append((team[index].team_name)!)
                 }
+                self.TeamsCollectionView.hideSkeleton()
+                self.TeamsCollectionView.reloadData()
             case .failure(let error):
                 //setup for placeholder
                 print(error)
@@ -169,7 +172,7 @@ extension LeagueDetailsVC:SkeletonCollectionViewDataSource{
             if sport == "tennis"{
                 return tennisPlayersData.result?.count ?? 0
             } else {
-                return teamsNamesArray.count
+                return teamsData.result?.count ?? 0
                 
             }
         } else {
