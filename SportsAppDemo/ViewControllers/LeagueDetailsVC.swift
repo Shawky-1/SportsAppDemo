@@ -17,6 +17,7 @@ class LeagueDetailsVC: UIViewController {
     var fixturesData = Fixtures()
     var standingData = Fixtures()
     var tennisPlayersData = Fixtures()
+    var tennisFixturesData = Fixtures()
     var teamsNamesArray:[String] = []
     let dummyMatches = matchs()
     let dummyTeams = teamsItems(team_key: 0, team_name: "", team_logo: "", players: nil)
@@ -31,6 +32,7 @@ class LeagueDetailsVC: UIViewController {
         standingData.result = [dummyMatches]
         teamsData.result = [dummyTeams]
         showSkeletonViews()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +62,7 @@ extension LeagueDetailsVC{
         fetchStandings()
         fetchTeams()
         fetchTennisPlayers()
+        fetchTennisFixtures()
         self.title = "League Info"
     }
     
@@ -71,7 +74,7 @@ extension LeagueDetailsVC{
                 self.fixturesData = fixtures
                 self.fixturesData.result = self.fixturesData.result?.reversed()
                 self.FixtureCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
-
+                
             case .failure(let error):
                 print(error)
             }
@@ -122,8 +125,24 @@ extension LeagueDetailsVC{
             }
         }
     }
+    
+    func fetchTennisFixtures(){
+        fixturexStandingTeams.fetchTennisFixtures(sport: sport) { [weak self]players in
+            guard let self = self else {return}
+            switch players{
+            case .success(let player):
+                self.tennisFixturesData = player
+                self.FixtureCollectionView.reloadData()
+                self.standingTableView.reloadData()
+                //self.FixtureCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                //print(self.tennisFixturesData.result?[2].event_first_player)
+            case .failure(let error):
+                //setup for placeholder
+                print(String(describing: error))
+            }
+        }
+    }
 }
-
 
 //MARK: CollectionViewDataSource
 extension LeagueDetailsVC:SkeletonCollectionViewDataSource{
@@ -167,8 +186,14 @@ extension LeagueDetailsVC:SkeletonCollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == FixtureCollectionView{
+            if sport == "tennis"{
+                return tennisFixturesData.result?.count ?? 1
+            }else{
+                return fixturesData.result?.count ?? 1
+            }
             
-            return fixturesData.result?.count ?? 1
+            
+            
         }else if collectionView == TeamsCollectionView{
             if sport == "tennis"{
                 return tennisPlayersData.result?.count ?? 0
@@ -187,7 +212,12 @@ extension LeagueDetailsVC:SkeletonCollectionViewDataSource{
         case FixtureCollectionView:
             let cell = FixtureCollectionView.dequeueReusableCell(withReuseIdentifier: "FixturesCell", for: indexPath) as! FixturesCell
             //            guard let result = fixturesData.result?[indexPath.row] else { return cell}
-            cell.configureCell(match: fixturesData.result?[indexPath.row] ?? dummyMatches,sport: sport)
+            if sport == "tennis"{
+                cell.configureCell(match: tennisFixturesData.result?[indexPath.row] ?? dummyMatches, sport: sport)
+            }else{
+                cell.configureCell(match: fixturesData.result?[indexPath.row] ?? dummyMatches,sport: sport)
+            }
+           
             
             return cell
         case TeamsCollectionView:
@@ -263,19 +293,32 @@ extension LeagueDetailsVC: UICollectionViewDelegate{
 extension LeagueDetailsVC:UITableViewDataSource, SkeletonTableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if sport == "tennis"{
+            return tennisFixturesData.result?.count ?? 1
+        }else{
+            return standingData.result?.count ?? 0
+        }
         
-        return standingData.result?.count ?? 0
+        
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StandingTableViewCell
         
-        cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
-        cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
-        cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
-        cell.cRes1.text = standingData.result?[indexPath.row].event_home_final_result
-        cell.cRes2.text = standingData.result?[indexPath.row].event_away_final_result
+        if sport == "tennis"{
+            cell.homeTeamName.text = tennisFixturesData.result?[indexPath.row].event_first_player
+            cell.awayTeamName.text = tennisFixturesData.result?[indexPath.row].event_second_player
+            cell.resultLabel.text = tennisFixturesData.result?[indexPath.row].event_final_result
+        }else{
+            cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
+            cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
+            cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
+            cell.cRes1.text = standingData.result?[indexPath.row].event_home_final_result
+            cell.cRes2.text = standingData.result?[indexPath.row].event_away_final_result
+        }
+        
+       
         
         return cell
     }

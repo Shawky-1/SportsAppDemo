@@ -60,6 +60,30 @@ class Fetch{
        
     }
     
+    
+    func  fetchTennisFixtures(sport:String,complition:@escaping(Result<Fixtures,Error>)->Void){
+        let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/")
+        let parameters:[String: Any] = ["met": "Livescore",
+                                        "APIkey": key]
+        if sport == "tennis"{
+            AF.request(url!, parameters: parameters).validate().response { responseData in
+                switch responseData.result{
+                case .success(let data):
+                    do{
+                        let players = try JSONDecoder().decode(Fixtures.self, from: data!)
+                        complition(.success(players))
+                    }catch{
+                        complition(.failure(error))
+                    }
+                case .failure(let error):
+                    complition(.failure(error))
+                }
+            }
+        }
+       
+    }
+    
+    
     func fetchTeams(sport:String,leagueId:Int,complition:@escaping (Result<Teams, Error>)->Void){
         
         let url = URL(string: "https://apiv2.allsportsapi.com/\(sport)/")

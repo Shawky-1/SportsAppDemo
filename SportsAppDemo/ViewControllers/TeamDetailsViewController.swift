@@ -88,11 +88,19 @@ extension TeamDetailsViewController:UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Players"
+        if sport == "football"{
+            return "Players"
+        }else{
+            return ""
+        }
+        
+        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
     
         
     }

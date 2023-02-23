@@ -35,8 +35,10 @@ class matchs : Codable{
     var event_home_final_result:String? // creccit
     var event_away_final_result:String? // creccit
     var event_first_player: String? // tennis
-    var first_player_key: String? // tennis
+    //var first_player_key: String? // tennis
     var event_second_player: String? // tennis
-    var second_player_key:String? // tennis
+    //var second_player_key:String? // tennis
     var player:String?
+    var event_first_player_logo:String?
+    var event_second_player_logo:String?
 }

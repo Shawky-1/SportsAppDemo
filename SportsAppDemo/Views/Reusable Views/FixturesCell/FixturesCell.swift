@@ -52,7 +52,7 @@ class FixturesCell: UICollectionViewCell {
                     .transition(.fade(1)),
                     .cacheOriginalImage
                 ])
-        }else{
+        }else if sport == "football"{
             HomeImgView.kf.setImage(
                 with: URL(string: match.home_team_logo ?? ""), placeholder: UIImage(named: "6"),
                 options: [
@@ -70,6 +70,24 @@ class FixturesCell: UICollectionViewCell {
                     .transition(.fade(1)),
                     .cacheOriginalImage
                 ])
+        }else{
+            HomeImgView.kf.setImage(
+                with: URL(string: match.event_first_player_logo ?? ""), placeholder: UIImage(named: "5"),
+                options: [
+                    .processor(processor),
+                    .scaleFactor(UIScreen.main.scale),
+                    .transition(.fade(1)),
+                    .cacheOriginalImage
+                ])
+            
+            awayImgView.kf.setImage(
+                with: URL(string: match.event_second_player_logo ?? ""),placeholder: UIImage(named: "5"),
+                options: [
+                    .processor(processor),
+                    .scaleFactor(UIScreen.main.scale),
+                    .transition(.fade(1)),
+                    .cacheOriginalImage
+                ])
         }
         
         if sport == "cricket"{
@@ -77,7 +95,13 @@ class FixturesCell: UICollectionViewCell {
             awayLbl.text = match.event_away_team
             timeLbl.text = match.event_time
             StadiumLbl.text = match.event_date_start
-        }else{
+        }else if sport == "tennis"{
+            HomeLbl.text = match.event_first_player
+            awayLbl.text = match.event_second_player
+            timeLbl.text = match.event_time
+            StadiumLbl.text = match.event_date
+        }
+        else{
             HomeLbl.text = match.event_home_team
             awayLbl.text = match.event_away_team
             timeLbl.text = match.event_time

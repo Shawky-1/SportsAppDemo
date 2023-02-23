@@ -86,6 +86,8 @@ class favoriteViewController: UIViewController, UITableViewDelegate, UITableView
         teamDetails.teamName = favArray[indexPath.row].value(forKey: "teamName") as! String
         teamDetails.teamLogo = favArray[indexPath.row].value(forKey: "teamLogo") as! String
         teamDetails.PlayersDetails = favArray[indexPath.row].value(forKey: "players") as! [player]
+        
+        teamDetails.hidesBottomBarWhenPushed = true
 
         self.navigationController?.pushViewController(teamDetails, animated: true)
     }
