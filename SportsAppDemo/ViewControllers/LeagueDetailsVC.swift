@@ -194,6 +194,9 @@ extension LeagueDetailsVC:SkeletonCollectionViewDataSource{
             cell.teamView.backgroundColor = .secondarySystemBackground
             if sport == "tennis"{
                 cell.teamName.text = tennisPlayersData.result?[indexPath.row].player ?? ""
+                cell.teamImageV.image = UIImage(named: "5")
+                cell.backgroundView?.backgroundColor = .clear
+                cell.teamView.backgroundColor = .clear
             }else{
                 cell.configureCell(img: teamsData.result?[indexPath.row].team_logo ?? "",
                                    teamName: teamsData.result?[indexPath.row].team_name ?? "")
