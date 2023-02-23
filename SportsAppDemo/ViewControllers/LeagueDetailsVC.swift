@@ -69,6 +69,7 @@ extension LeagueDetailsVC{
             switch fixtures{
             case .success(let fixtures):
                 self.fixturesData = fixtures
+                self.fixturesData.result = self.fixturesData.result?.reversed()
                 self.FixtureCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
 
             case .failure(let error):
@@ -109,7 +110,7 @@ extension LeagueDetailsVC{
         }
     }
     func fetchTennisPlayers(){
-        fixturexStandingTeams.fetchTennisPlayers { [weak self]players in
+        fixturexStandingTeams.fetchTennisPlayers(sport:sport) { [weak self]players in
             guard let self = self else {return}
             switch players{
             case .success(let player):
@@ -235,8 +236,14 @@ extension LeagueDetailsVC: UICollectionViewDelegate{
             
             teamDetails.sport = sport
             teamDetails.leagueID = leagueID
-            teamDetails.teamName = teamsNamesArray[indexPath.row]
-            teamDetails.teamLogo = teamsData.result?[indexPath.row].team_logo ?? ""
+            if sport == "tennis"{
+                teamDetails.teamName = tennisPlayersData.result?[indexPath.row].player ?? ""
+                
+            }else{
+                teamDetails.teamName = teamsNamesArray[indexPath.row]
+                teamDetails.teamLogo = teamsData.result?[indexPath.row].team_logo ?? ""
+            }
+            
             
             if sport == "football"{
                 guard let players = (teamsData.result?[indexPath.row].players) else {return}
@@ -290,6 +297,7 @@ extension LeagueDetailsVC:UITableViewDataSource, SkeletonTableViewDataSource{
         return cell
         
     }
+    
     
     
     

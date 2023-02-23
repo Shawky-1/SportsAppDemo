@@ -31,6 +31,12 @@ class TeamDetailsViewController: UIViewController {
         teamNameLabel.text = teamName
         let url = URL(string: teamLogo)
         detailTeamLogo.kf.setImage(with: url,placeholder: UIImage(named: "6"))
+        if sport == "tennis"{
+            detailTeamLogo.image = UIImage(named: "5")
+        }else{
+            detailTeamLogo.kf.setImage(with: url,placeholder: UIImage(named: "6"))
+        }
+        
         
     }
     
