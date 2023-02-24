@@ -301,8 +301,8 @@ extension LeagueDetailsVC:UITableViewDataSource, SkeletonTableViewDataSource{
             cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
             cell.cRes1.text = standingData.result?[indexPath.row].event_home_final_result
             cell.cRes2.text = standingData.result?[indexPath.row].event_away_final_result
-            cell.homeLogo.kf.setImage(with: URL(string: standingData.result?[indexPath.row].home_team_logo ?? ""))
-            cell.awayLogo.kf.setImage(with: URL(string: standingData.result?[indexPath.row].away_team_logo ?? ""))
+            cell.homeLogo.kf.setImage(with: URL(string: (standingData.result?[indexPath.row].home_team_logo ?? standingData.result?[indexPath.row].event_home_team_logo) ?? ""))
+            cell.awayLogo.kf.setImage(with: URL(string: standingData.result?[indexPath.row].away_team_logo ?? standingData.result?[indexPath.row].event_away_team_logo ?? ""))
             cell.date.text = standingData.result?[indexPath.row].event_date
             cell.liveTime.text = standingData.result?[indexPath.row].event_time
         }
