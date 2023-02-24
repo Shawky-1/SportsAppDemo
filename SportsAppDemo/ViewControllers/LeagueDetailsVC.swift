@@ -12,6 +12,7 @@ import SkeletonView
 class LeagueDetailsVC: UIViewController {
     var sport:String = ""
     var leagueID:Int = 0
+    var leagueName:String = ""
     let fixturexStandingTeams = Fetch()
     var teamsData = Teams()
     var fixturesData = Fixtures()
@@ -29,6 +30,9 @@ class LeagueDetailsVC: UIViewController {
     @IBOutlet weak var noStandingResultsLabel: UILabel!
     @IBOutlet weak var connectionImageView: UIImageView!
     
+    @IBOutlet weak var upcomingMaches: UILabel!
+    
+    @IBOutlet weak var lastResult: UILabel!
     
     
     override func viewDidLoad() {
@@ -70,7 +74,7 @@ extension LeagueDetailsVC{
         fetchTeams()
         fetchTennisPlayers()
         fetchTennisFixtures()
-        self.title = "League Info"
+        self.title = leagueName
     }
     
     func fetchFixtures(){
@@ -88,6 +92,8 @@ extension LeagueDetailsVC{
                 }
             case .failure(let error):
                 self.FixtureCollectionView.isHidden = true
+                self.upcomingMaches.isHidden = true
+                self.lastResult.isHidden = true
                 print(error)
             }
         }
@@ -138,7 +144,11 @@ extension LeagueDetailsVC{
                 self.tennisPlayersData = player
                 self.TeamsCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
             case .failure(let error):
-                //setup for placeholder
+                self.FixtureCollectionView.isHidden = true
+                self.upcomingMaches.isHidden = true
+                self.lastResult.isHidden = true
+                self.standingTableView.isHidden = true
+                self.connectionImageView.image = UIImage(named: "no_internet")
                 print(error)
             }
         }
@@ -155,7 +165,7 @@ extension LeagueDetailsVC{
                 //self.FixtureCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 //print(self.tennisFixturesData.result?[2].event_first_player)
             case .failure(let error):
-                //setup for placeholder
+                self.TeamsCollectionView.isHidden = true
                 print(String(describing: error))
             }
         }
@@ -295,15 +305,17 @@ extension LeagueDetailsVC:UITableViewDataSource, SkeletonTableViewDataSource{
             cell.homeTeamName.text = tennisFixturesData.result?[indexPath.row].event_first_player
             cell.awayTeamName.text = tennisFixturesData.result?[indexPath.row].event_second_player
             cell.resultLabel.text = tennisFixturesData.result?[indexPath.row].event_final_result
+            cell.homeLogo.image = UIImage(named: "7")
+            cell.awayLogo.image = UIImage(named: "7")
         }else{
             cell.homeTeamName.text = standingData.result?[indexPath.row].event_home_team
             cell.awayTeamName.text = standingData.result?[indexPath.row].event_away_team
             cell.resultLabel.text = standingData.result?[indexPath.row].event_final_result
             cell.cRes1.text = standingData.result?[indexPath.row].event_home_final_result
             cell.cRes2.text = standingData.result?[indexPath.row].event_away_final_result
-            cell.homeLogo.kf.setImage(with: URL(string: (standingData.result?[indexPath.row].home_team_logo ?? standingData.result?[indexPath.row].event_home_team_logo) ?? ""))
-            cell.awayLogo.kf.setImage(with: URL(string: standingData.result?[indexPath.row].away_team_logo ?? standingData.result?[indexPath.row].event_away_team_logo ?? ""))
-            cell.date.text = standingData.result?[indexPath.row].event_date
+            cell.homeLogo.kf.setImage(with: URL(string: (standingData.result?[indexPath.row].home_team_logo ?? standingData.result?[indexPath.row].event_home_team_logo) ?? ""),placeholder: UIImage(named: "6"))
+            cell.awayLogo.kf.setImage(with: URL(string: standingData.result?[indexPath.row].away_team_logo ?? standingData.result?[indexPath.row].event_away_team_logo ?? ""),placeholder: UIImage(named: "6"))
+            cell.date.text = standingData.result?[indexPath.row].event_date ?? standingData.result?[indexPath.row].event_date_start
             cell.liveTime.text = standingData.result?[indexPath.row].event_time
         }
         

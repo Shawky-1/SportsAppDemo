@@ -133,6 +133,7 @@ extension LeaguesVC: UITableViewDelegate,SkeletonTableViewDataSource{
         
         secVc.sport = sport
         secVc.leagueID = filteredLeagues?.result?[indexPath.row].league_key ?? 0
+        secVc.leagueName = filteredLeagues?.result?[indexPath.row].league_name ?? ""
         
         self.navigationController?.pushViewController(secVc, animated: true)
     }
