@@ -21,6 +21,13 @@ struct teamsItems:Decodable{
 }
 
 struct player:Decodable{
+    init(record: Player){
+        self.player_name = record.playerName
+        self.player_number = record.playerNumber
+        self.player_type = record.playerType
+        self.player_age = record.playerAge
+        self.player_image = record.playerImage
+    }
     var player_name:String?
     var player_number:String?
     var player_type:String?
