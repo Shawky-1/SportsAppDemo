@@ -14,6 +14,7 @@ import Reachability
 
 class LeaguesVC: UIViewController {
     
+    
     @IBOutlet weak var imgPlaceHolder: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var namesSearchBar: UISearchBar!
