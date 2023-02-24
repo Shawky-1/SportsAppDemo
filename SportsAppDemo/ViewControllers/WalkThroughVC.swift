@@ -14,9 +14,12 @@ class WalkThroughVC: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     
     
-    let walkthroughData = [walkThroughModel(title: "First Title", desc: "First Desc", img: ""),
-                           walkThroughModel(title: "Second Title", desc: "Second Label", img: ""),
-                           walkThroughModel(title: "Third Title", desc: "Third Desc", img: "")]
+    let walkthroughData = [walkThroughModel(title: "View your Favorite Leagues",
+                                            desc: "Our application lets you view the details of your favorite leagues and players.", img: "WalkThrough-1"),
+                           walkThroughModel(title: "Save your Favorite Teams",
+                                            desc: "You can save your favorite teams to your phone by clicking the star icon.", img: "WalkThrough-2"),
+                           walkThroughModel(title: "Get the latest update",
+                                            desc: "You can get updates on the latest matches, upcoming matches and details about the score right from the app.", img: "WalkThrough-3")]
     
     
     override func viewDidLoad() {

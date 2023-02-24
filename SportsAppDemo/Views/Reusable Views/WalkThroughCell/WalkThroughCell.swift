@@ -18,7 +18,7 @@ class WalkThroughCell: UICollectionViewCell {
     }
     
     func configureCell(_ WalkThroughModel: walkThroughModel){
-//        imgView.image = UIImage(named: WalkThroughModel.img)
+        imgView.image = UIImage(named: WalkThroughModel.img)
         titleLbl.text = WalkThroughModel.title
         descLbl.text = WalkThroughModel.desc
     }

@@ -27,17 +27,23 @@ class SportsTypes: UICollectionViewCell {
         default:
             backImg.image = UIImage(named: "FootBall-Texture")
         }
+        let strokeTextAttributes = [
+            NSAttributedString.Key.strokeColor : UIColor.secondarySystemBackground,
+            NSAttributedString.Key.strokeWidth : -5.0]
+            as [NSAttributedString.Key : Any]
         
-        
-        label.text = SportType.sportName
+//        label.text = SportType.sportName
+        label.attributedText = NSMutableAttributedString(string: SportType.sportName, attributes: strokeTextAttributes)
+
         imageView.image = UIImage(named: SportType.sportImage)
         configureShadow(View: sportView, opacity: 0.7, radius: 20, offset: CGSize(width: 10, height: 10))
         
         backImg.layer.cornerRadius = 45
-        backImg.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        backImg.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         backImg.layer.borderWidth = 3
-        configureShadow(View: label, opacity: 1, radius: 5, offset: CGSize(width: 0, height: 0))
-        label.layer.shadowColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        backImg.alpha = 1
+        configureShadow(View: label, opacity: 1, radius: 1, offset: CGSize(width: 0, height: 2))
+        
         sportView.layer.cornerRadius = sportView.bounds.height / 2 - 5
         
     }
