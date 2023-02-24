@@ -25,6 +25,11 @@ class LeagueDetailsVC: UIViewController {
     @IBOutlet weak var FixtureCollectionView: UICollectionView!
     @IBOutlet weak var TeamsCollectionView: UICollectionView!
     @IBOutlet weak var standingTableView: UITableView!
+    @IBOutlet weak var noFixturesLabel: UILabel!
+    @IBOutlet weak var noStandingResultsLabel: UILabel!
+    @IBOutlet weak var connectionImageView: UIImageView!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +37,8 @@ class LeagueDetailsVC: UIViewController {
         standingData.result = [dummyMatches]
         teamsData.result = [dummyTeams]
         showSkeletonViews()
+        
+        
        
     }
     
@@ -75,7 +82,12 @@ extension LeagueDetailsVC{
                 self.fixturesData.result = self.fixturesData.result?.reversed()
                 self.FixtureCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
                 
+                if self.fixturesData.result == nil && self.sport != "tennis"{
+                    self.FixtureCollectionView.isHidden = true
+                    self.noFixturesLabel.isHidden = false
+                }
             case .failure(let error):
+                self.FixtureCollectionView.isHidden = true
                 print(error)
             }
         }
@@ -88,7 +100,13 @@ extension LeagueDetailsVC{
             case .success(let fixtures):
                 self.standingData = fixtures
                 self.standingTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                if self.standingData.result == nil && self.sport != "tennis"{
+                    self.standingTableView.isHidden = true
+                    self.noStandingResultsLabel.isHidden = false
+                }
             case .failure(let error):
+                self.standingTableView.isHidden = true
+                self.connectionImageView.image = UIImage(named: "no_internet")
                 print(error)
             }
         }
@@ -107,7 +125,7 @@ extension LeagueDetailsVC{
                 self.TeamsCollectionView.hideSkeleton()
                 self.TeamsCollectionView.reloadData()
             case .failure(let error):
-                //setup for placeholder
+                self.TeamsCollectionView.isHidden = true
                 print(error)
             }
         }
