@@ -25,7 +25,7 @@ class favoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        favArray = coreData.fetch()
+        favArray = coreData.fetchTeams()
         favTable.reloadData()
     }
     
@@ -80,12 +80,19 @@ class favoriteViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let teamDetails = self.storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
-
+        
+        let players = coreData.fetchPlayers(team: favArray[indexPath.row] as! Sports)
+        
         teamDetails.sport = favArray[indexPath.row].value(forKey: "sportName") as! String
         teamDetails.leagueID = favArray[indexPath.row].value(forKey: "leagueID") as! Int
         teamDetails.teamName = favArray[indexPath.row].value(forKey: "teamName") as! String
         teamDetails.teamLogo = favArray[indexPath.row].value(forKey: "teamLogo") as! String
-        teamDetails.PlayersDetails = favArray[indexPath.row].value(forKey: "players") as! [player]
+        
+        var array: [player] = []
+        for item in players {
+            array.append(player.init(record: item as! Player))
+        }
+        teamDetails.PlayersDetails = array
         
         teamDetails.hidesBottomBarWhenPushed = true
 

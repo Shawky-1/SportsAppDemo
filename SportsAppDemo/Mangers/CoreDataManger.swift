@@ -20,23 +20,40 @@ class CoreData{
     }
     
     func save(sportName:String, leagueID:Int, teamName:String, teamLogo:String, players:[player])->Void {
-        let sportsEntity = NSEntityDescription.entity(forEntityName: "Sports", in: context!)
+        let team = Sports(context: context!)
         
-        let team = NSManagedObject(entity: sportsEntity!, insertInto: context!)
-        team.setValue(sportName, forKey: "sportName")
-        team.setValue(leagueID, forKey: "leagueID")
-        team.setValue(teamName, forKey: "teamName")
-        team.setValue(teamLogo, forKey: "teamLogo")
-        team.setValue(players, forKey: "players")
+        team.sportName = sportName
+        team.leagueID = Int64(leagueID)
+        team.teamName = teamName
+        team.teamLogo = teamLogo
+                
+        for i in 0..<players.count{
+            let playerX = Player(context: context!)
+            playerX.playerName = players[i].player_name
+            playerX.playerNumber = players[i].player_number
+            playerX.playerType = players[i].player_type
+            playerX.playerAge = players[i].player_age
+            playerX.playerImage = players[i].player_image
+            
+            team.addToSportsToPlayer(playerX)
+        }
         
         try? context?.save()
         print("object saved")
     }
 
-    func fetch()->[NSManagedObject] {
-        let fetchReq = NSFetchRequest<NSManagedObject>(entityName: "Sports")
-        var teams = try? context?.fetch(fetchReq)
+    func fetchTeams()->[NSManagedObject] {
+        let fetchTeamReq: NSFetchRequest<Sports> = Sports.fetchRequest()
+        let teams = try? context?.fetch(fetchTeamReq)
+        
         return teams ?? []
+    }
+    
+    func fetchPlayers(team:Sports)->[NSManagedObject]{
+        let fetchPlayerReq: NSFetchRequest<Player> = Player.fetchRequest()
+        fetchPlayerReq.predicate = NSPredicate(format: "playerToSports = %@", team)
+        let players = (try? context?.fetch(fetchPlayerReq)) ?? []
+        return players
     }
  
     func del(sportName:String, leagueID:Int, teamName:String)->Void {
