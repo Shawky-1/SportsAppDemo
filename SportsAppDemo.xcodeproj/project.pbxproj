@@ -36,8 +36,6 @@
 		E2B00C89299D48150068D393 /* WalkThroughCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B00C87299D48150068D393 /* WalkThroughCell.swift */; };
 		E2B00C8A299D48150068D393 /* WalkThroughCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2B00C88299D48150068D393 /* WalkThroughCell.xib */; };
 		E2B00C8C299E1C660068D393 /* WalkThroughModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B00C8B299E1C660068D393 /* WalkThroughModel.swift */; };
-		E2E6636629AA73BB000D2E0E /* CollectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E6636429AA73BB000D2E0E /* CollectionHeaderReusableView.swift */; };
-		E2E6636729AA73BB000D2E0E /* CollectionHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2E6636529AA73BB000D2E0E /* CollectionHeaderReusableView.xib */; };
 		E45285C694A1EA4402826676 /* Pods_SportsAppDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2E010973811740904827639 /* Pods_SportsAppDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,8 +74,6 @@
 		E2B00C87299D48150068D393 /* WalkThroughCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThroughCell.swift; sourceTree = "<group>"; };
 		E2B00C88299D48150068D393 /* WalkThroughCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalkThroughCell.xib; sourceTree = "<group>"; };
 		E2B00C8B299E1C660068D393 /* WalkThroughModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThroughModel.swift; sourceTree = "<group>"; };
-		E2E6636429AA73BB000D2E0E /* CollectionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionHeaderReusableView.swift; sourceTree = "<group>"; };
-		E2E6636529AA73BB000D2E0E /* CollectionHeaderReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionHeaderReusableView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,7 +260,6 @@
 		E2B00C86299D47EE0068D393 /* Reusable Views */ = {
 			isa = PBXGroup;
 			children = (
-				E2E6636329AA7392000D2E0E /* CollectionViewHeader */,
 				BC07707129A55756002EB5EA /* PlayerDetailCell */,
 				E2ACE21A29A37D74002E22C1 /* FavoriteCell */,
 				E2ACE21B29A37D7B002E22C1 /* StandingsCell */,
@@ -275,15 +270,6 @@
 				E205C90529A0FB67000A756E /* WalkThroughCell */,
 			);
 			path = "Reusable Views";
-			sourceTree = "<group>";
-		};
-		E2E6636329AA7392000D2E0E /* CollectionViewHeader */ = {
-			isa = PBXGroup;
-			children = (
-				E2E6636429AA73BB000D2E0E /* CollectionHeaderReusableView.swift */,
-				E2E6636529AA73BB000D2E0E /* CollectionHeaderReusableView.xib */,
-			);
-			path = CollectionViewHeader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,7 +337,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2E6636729AA73BB000D2E0E /* CollectionHeaderReusableView.xib in Resources */,
 				E2B00C8A299D48150068D393 /* WalkThroughCell.xib in Resources */,
 				E232FA4B299BAB0400156D4C /* LaunchScreen.storyboard in Resources */,
 				E22DE71229A2192D0097A8A4 /* FixturesCell.xib in Resources */,
@@ -410,7 +395,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC5E70F1299FCD55002C7F69 /* Teams.swift in Sources */,
-				E2E6636629AA73BB000D2E0E /* CollectionHeaderReusableView.swift in Sources */,
 				BC07707329A557B2002EB5EA /* PlayerDetailCell.swift in Sources */,
 				E2B00C7B299D1F900068D393 /* NetworkManger.swift in Sources */,
 				9ECBA2FB299FF67900CCB9B2 /* favoriteViewController.swift in Sources */,
