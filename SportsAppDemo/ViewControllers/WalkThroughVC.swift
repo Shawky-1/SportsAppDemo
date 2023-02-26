@@ -75,9 +75,9 @@ extension WalkThroughVC: UICollectionViewDelegateFlowLayout {
         let index = (scrollView.contentOffset.x) / (scrollView.frame.width)
         pageControl.currentPage = Int(index)
         if pageControl.currentPage == pageControl.numberOfPages - 1{
-            skipBtn.titleLabel?.text = "Continue"
+            skipBtn.setTitle("Continue", for: .normal)
         } else{
-            skipBtn.titleLabel?.text = "Skip"
+            skipBtn.setTitle("Skip", for: .normal)
         }
     }
 }

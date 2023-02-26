@@ -63,8 +63,18 @@ class LeagueDetailsVC: UIViewController {
 extension LeagueDetailsVC{
     
     func setupCells(){
+        let collectionViewHeaderFooterReuseIdentifier = "CollectionHeaderReusableView"
+
         FixtureCollectionView.register(UINib(nibName: "FixturesCell", bundle: nil),
                                        forCellWithReuseIdentifier: "FixturesCell")
+        
+        FixtureCollectionView.register(UINib(nibName: collectionViewHeaderFooterReuseIdentifier,
+                                             bundle: nil),
+                                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                       withReuseIdentifier:collectionViewHeaderFooterReuseIdentifier)
+        
+        
+
         fetchFixtures()
         fetchStandings()
         fetchTeams()

@@ -65,11 +65,11 @@ extension HomeVC: UICollectionViewDelegate{
 extension HomeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: self.view.frame.width/2 - 20,
+        return CGSize(width: self.view.frame.width/2 - 10,
                       height: self.view.frame.height / 2 - self.view.frame.height / 6.5)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
+        UIEdgeInsets(top: 10, left: 5, bottom: 0, right: 5)
     }
 }

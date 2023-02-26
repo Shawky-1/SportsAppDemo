@@ -29,7 +29,7 @@ class SportsTypes: UICollectionViewCell {
         }
         let strokeTextAttributes = [
             NSAttributedString.Key.strokeColor : UIColor.secondarySystemBackground,
-            NSAttributedString.Key.strokeWidth : -5.0]
+            NSAttributedString.Key.strokeWidth : -3.0]
             as [NSAttributedString.Key : Any]
         
 //        label.text = SportType.sportName
